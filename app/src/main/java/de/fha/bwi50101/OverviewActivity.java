@@ -23,5 +23,7 @@ public class OverviewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(actionBarTitle);
+
+
     }
 }

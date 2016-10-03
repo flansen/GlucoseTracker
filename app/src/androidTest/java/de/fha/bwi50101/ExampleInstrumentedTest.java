@@ -4,12 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.orm.SugarContext;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import de.fha.bwi50101.common.model.Entry;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,9 +22,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("de.fha.bwi50101", appContext.getPackageName());
-        SugarContext.init(appContext);
-        Entry e = new Entry();
-        e.save();
-        System.out.println(e.getId() + " -a-sdf-sad-gs-dgh-sdfh-d-h-");
     }
 }
