@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BWI50101</string>
+    <string name="action_bar_title_overview">Overview</string>
 </resources>

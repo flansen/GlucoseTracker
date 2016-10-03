@@ -32,12 +32,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     testCompile "junit:junit:$rootProject.junitVersion"
 
     //3rd party
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
 
     compile project(path: ':cleanboilerplate_dagger')
 }

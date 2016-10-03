@@ -23,15 +23,19 @@ task clean(type: Delete) {
 }
 
 ext {
+    //SdkVersions
     minSdkVersion = 16
     targetSdkVersion = 24
     compileSdkVersion = 24
     buildToolsVersion = '24.0.2'
 
+    //Application versions
     supportLibraryVersion = '24.2.1'
     junitVersion = '4.12'
 
+    //Vendor Versions
     butterknifeVersion = '8.4.0'
     daggerVersion = '2.7'
     jsrVersion = '1.0'
+    guavaVersion = '19.0'
 }
