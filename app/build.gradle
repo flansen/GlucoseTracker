@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -35,11 +36,16 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     testCompile "junit:junit:$rootProject.junitVersion"
+    testCompile "org.robolectric:robolectric:3.1.1"
+    testCompile "org.assertj:assertj-core:1.7.0"
 
     //3rd party
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile "com.github.satyan:sugar:$rootProject.sugarOrmVersion"
+    compile "com.facebook.stetho:stetho:$rootProject.stethoVersion"
+    compile "com.facebook.stetho:stetho-okhttp:$rootProject.stethoVersion"
 
     compile project(path: ':cleanboilerplate_dagger')
 }

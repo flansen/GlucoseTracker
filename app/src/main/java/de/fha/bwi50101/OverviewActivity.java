@@ -21,6 +21,7 @@ public class OverviewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setTitle(actionBarTitle);
     }
 }

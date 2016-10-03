@@ -38,4 +38,7 @@ ext {
     daggerVersion = '2.7'
     jsrVersion = '1.0'
     guavaVersion = '19.0'
+    sugarOrmVersion = '1.5'
+    stethoVersion = '1.3.1'
+    robolectricVersion = '3.1.1'
 }
