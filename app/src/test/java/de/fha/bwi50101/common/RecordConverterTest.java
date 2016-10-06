@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-import de.fha.bwi50101.common.impl.DAOConverterImpl;
+import de.fha.bwi50101.common.impl.RecordConverterImpl;
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
@@ -22,7 +22,7 @@ import de.fha.bwi50101.common.persistance.EntryRecord;
  * Created by Florian on 06.10.2016.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class DAOConverterTest {
+public class RecordConverterTest {
     private static final String TEST_NOTE = "Test note";
     private static final Date TEST_DATE = new Date();
     private static final Date TEST_DIABETES_DATE = new Date(1234567L);
@@ -37,11 +37,11 @@ public class DAOConverterTest {
     private DiabetesDataRecord diabetesDataRecord1;
     private DiabetesDataRecord diabetesDataRecord2;
 
-    private DAOConverter sut;
+    private RecordConverter sut;
 
     @Before
     public void setUp() {
-        sut = new DAOConverterImpl();
+        sut = new RecordConverterImpl();
 
         diabetesData1 = new DiabetesData();
         diabetesData1.setId(TEST_ID_DATA1);
@@ -72,7 +72,7 @@ public class DAOConverterTest {
     @Test
     public void testConvertDAOToEntryWithDiabetesData() {
         EntryRecord entryRecord = createTestEntryDAOWithDiabetesData();
-        Entry entry = sut.entryDAOtoEntry(entryRecord);
+        Entry entry = sut.entryRecordToEntry(entryRecord);
         compareEntryWithEntryDAO(entry, entryRecord);
 
         DiabetesData d1 = null, d2 = null;
@@ -92,7 +92,7 @@ public class DAOConverterTest {
     public void testConvertDAOToEntryDAOWithoutDiabetesData() {
         EntryRecord entryRecord = createTestEntryDAOWithDiabetesData();
         entryRecord.setDiabetesData(new ArrayList<DiabetesDataRecord>());
-        Entry e = sut.entryDAOtoEntry(entryRecord);
+        Entry e = sut.entryRecordToEntry(entryRecord);
         Assert.assertEquals(entryRecord.getDiabetesData().size(), e.getDiabetesData().size());
     }
     //endregion
@@ -102,7 +102,7 @@ public class DAOConverterTest {
     @Test
     public void testConvertEntryToDAOWithDiabetesData() {
         Entry e = createTestEntryWithDiabetesData();
-        EntryRecord dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryRecord(e);
 
         compareEntryWithEntryDAO(e, dao);
 
@@ -122,7 +122,7 @@ public class DAOConverterTest {
     public void testConvertEntryToDAOWithoutDiabetesData() {
         Entry e = createTestEntryWithDiabetesData();
         e.setDiabetesDataAndUpdateDate(new ArrayList<DiabetesData>());
-        EntryRecord dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryRecord(e);
         Assert.assertEquals(e.getDiabetesData().size(), dao.getDiabetesData().size());
     }
 
@@ -132,7 +132,7 @@ public class DAOConverterTest {
         e.setId(Constants.NO_ID);
         diabetesData1.setId(Constants.NO_ID);
         e.setDiabetesDataAndUpdateDate(Arrays.asList(diabetesData1));
-        EntryRecord dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryRecord(e);
         Assert.assertNull(dao.getId());
         Assert.assertNull(dao.getDiabetesData().get(0).getId());
     }

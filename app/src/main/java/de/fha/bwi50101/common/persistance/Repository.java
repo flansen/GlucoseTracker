@@ -18,7 +18,5 @@ public interface Repository {
 
     List<Entry> findNewerThan(Date date);
 
-    Entry findWithHighestGlucoseSince(Date since);
-
     Entry findMostRecentWithGlucoseValue();
 }

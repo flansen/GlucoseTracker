@@ -7,8 +7,8 @@ import de.fha.bwi50101.common.persistance.EntryRecord;
  * Created by Florian on 06.10.2016.
  */
 
-public interface DAOConverter {
-    Entry entryDAOtoEntry(EntryRecord entryRecord);
+public interface RecordConverter {
+    Entry entryRecordToEntry(EntryRecord entryRecord);
 
-    EntryRecord entryToEntryDAO(Entry entry);
+    EntryRecord entryToEntryRecord(Entry entry);
 }

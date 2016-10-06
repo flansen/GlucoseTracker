@@ -13,7 +13,7 @@ import de.fha.bwi50101.common.model.DiabetesDataType;
 public class DiabetesDataRecord extends SugarRecord {
     private DiabetesDataType diabetesDataType;
     private float value;
-    private EntryRecord entry;
+    private EntryRecord entryRecord;
     private Date dataDate;
 
     public DiabetesDataRecord() {
@@ -45,11 +45,11 @@ public class DiabetesDataRecord extends SugarRecord {
         this.dataDate = dataDate;
     }
 
-    public EntryRecord getEntry() {
-        return entry;
+    public EntryRecord getEntryRecord() {
+        return entryRecord;
     }
 
-    public void setEntryDAO(EntryRecord entry) {
-        this.entry = entry;
+    public void setEntryRecord(EntryRecord entryRecord) {
+        this.entryRecord = entryRecord;
     }
 }
