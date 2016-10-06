@@ -75,7 +75,7 @@ public class RecordConverterImpl implements RecordConverter {
         DiabetesDataRecord r = new DiabetesDataRecord();
         r.setId(d.getId() == Constants.NO_ID ? null : d.getId());
         r.setValue(d.getValue());
-        r.setDate(d.getDataDate());
+        r.setDate(d.getDate());
         r.setEntryRecord(entryRecord);
         r.setType(d.getType());
         return r;

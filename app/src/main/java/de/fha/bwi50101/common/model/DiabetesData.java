@@ -53,8 +53,4 @@ public class DiabetesData {
     public void setId(long id) {
         this.id = id;
     }
-
-    public Date getDataDate() {
-        return dataDate;
-    }
 }

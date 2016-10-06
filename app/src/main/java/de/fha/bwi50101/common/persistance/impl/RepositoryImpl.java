@@ -67,7 +67,7 @@ public class RepositoryImpl implements Repository {
     public Entry findMostRecentWithGlucoseValue() {
         DiabetesDataRecord ddr = Select.from(DiabetesDataRecord.class)
                 .where(Condition.prop("DIABETES_DATA_TYPE").eq("Glucose"))
-                .orderBy("DATA_CREATED_AT DESC")
+                .orderBy("DATA_DATE DESC")
                 .first();
         if (ddr != null) {
             EntryRecord entryRecord = EntryRecord.findById(EntryRecord.class, ddr.getEntryRecord().getId());
