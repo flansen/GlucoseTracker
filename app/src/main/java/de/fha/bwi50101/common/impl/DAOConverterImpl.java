@@ -7,8 +7,8 @@ import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.DAOConverter;
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.Entry;
-import de.fha.bwi50101.common.persistance.DiabetesDataDAO;
-import de.fha.bwi50101.common.persistance.EntryDAO;
+import de.fha.bwi50101.common.persistance.DiabetesDataRecord;
+import de.fha.bwi50101.common.persistance.EntryRecord;
 
 /**
  * Created by Florian on 06.10.2016.
@@ -17,24 +17,24 @@ import de.fha.bwi50101.common.persistance.EntryDAO;
 public class DAOConverterImpl implements DAOConverter {
 
     @Override
-    public Entry entryDAOtoEntry(EntryDAO entryDAO) {
-        Entry entry = createEntryFromDAO(entryDAO);
+    public Entry entryDAOtoEntry(EntryRecord entryRecord) {
+        Entry entry = createEntryFromDAO(entryRecord);
         return entry;
     }
 
-    private Entry createEntryFromDAO(EntryDAO entryDAO) {
+    private Entry createEntryFromDAO(EntryRecord entryRecord) {
         Entry entry = new Entry();
-        entry.setDiabetesDataAndUpdateDate(createDiabetesDataListFromDAOList(entryDAO));
-        entry.setDataCreatedAt(entryDAO.getDataCreatedAt());
-        entry.setId(entryDAO.getId());
-        entry.setCreatedAt(entryDAO.getCreatedAt());
-        entry.setNote(entryDAO.getNote());
+        entry.setDiabetesDataAndUpdateDate(createDiabetesDataListFromDAOList(entryRecord));
+        entry.setDataCreatedAt(entryRecord.getDataCreatedAt());
+        entry.setId(entryRecord.getId());
+        entry.setCreatedAt(entryRecord.getCreatedAt());
+        entry.setNote(entryRecord.getNote());
         return entry;
     }
 
-    private List<DiabetesData> createDiabetesDataListFromDAOList(EntryDAO entryDAO) {
+    private List<DiabetesData> createDiabetesDataListFromDAOList(EntryRecord entryRecord) {
         List<DiabetesData> diabetesDataList = new ArrayList<>();
-        for (DiabetesDataDAO ddDAO : entryDAO.getDiabetesData()) {
+        for (DiabetesDataRecord ddDAO : entryRecord.getDiabetesData()) {
             DiabetesData d = new DiabetesData();
             d.setType(ddDAO.getType());
             d.setValue(ddDAO.getValue());
@@ -46,37 +46,37 @@ public class DAOConverterImpl implements DAOConverter {
     }
 
     @Override
-    public EntryDAO entryToEntryDAO(Entry entry) {
-        EntryDAO entryDAO = createDAOFromEntry(entry);
-        return entryDAO;
+    public EntryRecord entryToEntryDAO(Entry entry) {
+        EntryRecord entryRecord = createDAOFromEntry(entry);
+        return entryRecord;
     }
 
-    private EntryDAO createDAOFromEntry(Entry entry) {
-        EntryDAO entryDAO = new EntryDAO();
-        entryDAO.setCreatedAt(entry.getCreatedAt());
-        entryDAO.setDataCreatedAt(entry.getDataCreatedAt());
-        entryDAO.setId(entry.getId() == Constants.NO_ID ? null : entry.getId());
-        entryDAO.setNote(entry.getNote());
-        List<DiabetesDataDAO> diabetesDataDAOList = createDAOListFromDiabetesDataList(entry.getDiabetesData(), entryDAO);
-        entryDAO.setDiabetesData(diabetesDataDAOList);
-        return entryDAO;
+    private EntryRecord createDAOFromEntry(Entry entry) {
+        EntryRecord entryRecord = new EntryRecord();
+        entryRecord.setCreatedAt(entry.getCreatedAt());
+        entryRecord.setDataCreatedAt(entry.getDataCreatedAt());
+        entryRecord.setId(entry.getId() == Constants.NO_ID ? null : entry.getId());
+        entryRecord.setNote(entry.getNote());
+        List<DiabetesDataRecord> diabetesDataRecordList = createDAOListFromDiabetesDataList(entry.getDiabetesData(), entryRecord);
+        entryRecord.setDiabetesData(diabetesDataRecordList);
+        return entryRecord;
     }
 
-    private List<DiabetesDataDAO> createDAOListFromDiabetesDataList(List<DiabetesData> diabetesData, EntryDAO entryDAO) {
-        List<DiabetesDataDAO> diabetesDataDAOList = new ArrayList<>();
+    private List<DiabetesDataRecord> createDAOListFromDiabetesDataList(List<DiabetesData> diabetesData, EntryRecord entryRecord) {
+        List<DiabetesDataRecord> diabetesDataRecordList = new ArrayList<>();
         for (DiabetesData d : diabetesData) {
-            DiabetesDataDAO dao = createDAOFromDiabetesData(d, entryDAO);
-            diabetesDataDAOList.add(dao);
+            DiabetesDataRecord dao = createDAOFromDiabetesData(d, entryRecord);
+            diabetesDataRecordList.add(dao);
         }
-        return diabetesDataDAOList;
+        return diabetesDataRecordList;
     }
 
-    private DiabetesDataDAO createDAOFromDiabetesData(DiabetesData d, EntryDAO entryDAO) {
-        DiabetesDataDAO dao = new DiabetesDataDAO();
+    private DiabetesDataRecord createDAOFromDiabetesData(DiabetesData d, EntryRecord entryRecord) {
+        DiabetesDataRecord dao = new DiabetesDataRecord();
         dao.setId(d.getId() == Constants.NO_ID ? null : d.getId());
         dao.setValue(d.getValue());
         dao.setDate(d.getDataDate());
-        dao.setEntryDAO(entryDAO);
+        dao.setEntryDAO(entryRecord);
         dao.setType(d.getType());
         return dao;
     }

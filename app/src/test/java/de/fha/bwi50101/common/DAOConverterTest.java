@@ -15,8 +15,8 @@ import de.fha.bwi50101.common.impl.DAOConverterImpl;
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
-import de.fha.bwi50101.common.persistance.DiabetesDataDAO;
-import de.fha.bwi50101.common.persistance.EntryDAO;
+import de.fha.bwi50101.common.persistance.DiabetesDataRecord;
+import de.fha.bwi50101.common.persistance.EntryRecord;
 
 /**
  * Created by Florian on 06.10.2016.
@@ -34,8 +34,8 @@ public class DAOConverterTest {
     private DiabetesData diabetesData1;
     private DiabetesData diabetesData2;
 
-    private DiabetesDataDAO diabetesDataDAO1;
-    private DiabetesDataDAO diabetesDataDAO2;
+    private DiabetesDataRecord diabetesDataRecord1;
+    private DiabetesDataRecord diabetesDataRecord2;
 
     private DAOConverter sut;
 
@@ -55,45 +55,45 @@ public class DAOConverterTest {
         diabetesData2.setDate(TEST_DIABETES_DATE);
         diabetesData2.setType(DiabetesDataType.Food);
 
-        diabetesDataDAO1 = new DiabetesDataDAO();
-        diabetesDataDAO1.setValue(TEST_VALUE_1);
-        diabetesDataDAO1.setId(TEST_ID_DATA1);
-        diabetesDataDAO1.setDate(TEST_DIABETES_DATE);
-        diabetesDataDAO1.setType(DiabetesDataType.Glucose);
+        diabetesDataRecord1 = new DiabetesDataRecord();
+        diabetesDataRecord1.setValue(TEST_VALUE_1);
+        diabetesDataRecord1.setId(TEST_ID_DATA1);
+        diabetesDataRecord1.setDate(TEST_DIABETES_DATE);
+        diabetesDataRecord1.setType(DiabetesDataType.Glucose);
 
-        diabetesDataDAO2 = new DiabetesDataDAO();
-        diabetesDataDAO2.setValue(TEST_VALUE_2);
-        diabetesDataDAO2.setId(TEST_ID_DATA2);
-        diabetesDataDAO2.setDate(TEST_DIABETES_DATE);
-        diabetesDataDAO2.setType(DiabetesDataType.Food);
+        diabetesDataRecord2 = new DiabetesDataRecord();
+        diabetesDataRecord2.setValue(TEST_VALUE_2);
+        diabetesDataRecord2.setId(TEST_ID_DATA2);
+        diabetesDataRecord2.setDate(TEST_DIABETES_DATE);
+        diabetesDataRecord2.setType(DiabetesDataType.Food);
     }
 
     //region DAOToEntry
     @Test
     public void testConvertDAOToEntryWithDiabetesData() {
-        EntryDAO entryDAO = createTestEntryDAOWithDiabetesData();
-        Entry entry = sut.entryDAOtoEntry(entryDAO);
-        compareEntryWithEntryDAO(entry, entryDAO);
+        EntryRecord entryRecord = createTestEntryDAOWithDiabetesData();
+        Entry entry = sut.entryDAOtoEntry(entryRecord);
+        compareEntryWithEntryDAO(entry, entryRecord);
 
         DiabetesData d1 = null, d2 = null;
 
         for (DiabetesData d : entry.getDiabetesData()) {
-            if (d.getId() == diabetesDataDAO1.getId())
+            if (d.getId() == diabetesDataRecord1.getId())
                 d1 = d;
             else
                 d2 = d;
         }
 
-        compareDiabetesDataToDAO(d1, diabetesDataDAO1);
-        compareDiabetesDataToDAO(d2, diabetesDataDAO2);
+        compareDiabetesDataToDAO(d1, diabetesDataRecord1);
+        compareDiabetesDataToDAO(d2, diabetesDataRecord2);
     }
 
     @Test
     public void testConvertDAOToEntryDAOWithoutDiabetesData() {
-        EntryDAO entryDAO = createTestEntryDAOWithDiabetesData();
-        entryDAO.setDiabetesData(new ArrayList<DiabetesDataDAO>());
-        Entry e = sut.entryDAOtoEntry(entryDAO);
-        Assert.assertEquals(entryDAO.getDiabetesData().size(), e.getDiabetesData().size());
+        EntryRecord entryRecord = createTestEntryDAOWithDiabetesData();
+        entryRecord.setDiabetesData(new ArrayList<DiabetesDataRecord>());
+        Entry e = sut.entryDAOtoEntry(entryRecord);
+        Assert.assertEquals(entryRecord.getDiabetesData().size(), e.getDiabetesData().size());
     }
     //endregion
 
@@ -102,12 +102,12 @@ public class DAOConverterTest {
     @Test
     public void testConvertEntryToDAOWithDiabetesData() {
         Entry e = createTestEntryWithDiabetesData();
-        EntryDAO dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryDAO(e);
 
         compareEntryWithEntryDAO(e, dao);
 
-        DiabetesDataDAO d1DAO = null, d2DAO = null;
-        for (DiabetesDataDAO dataDAO : dao.getDiabetesData()) {
+        DiabetesDataRecord d1DAO = null, d2DAO = null;
+        for (DiabetesDataRecord dataDAO : dao.getDiabetesData()) {
             if (dataDAO.getId() == diabetesData1.getId())
                 d1DAO = dataDAO;
             else
@@ -122,7 +122,7 @@ public class DAOConverterTest {
     public void testConvertEntryToDAOWithoutDiabetesData() {
         Entry e = createTestEntryWithDiabetesData();
         e.setDiabetesDataAndUpdateDate(new ArrayList<DiabetesData>());
-        EntryDAO dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryDAO(e);
         Assert.assertEquals(e.getDiabetesData().size(), dao.getDiabetesData().size());
     }
 
@@ -132,13 +132,13 @@ public class DAOConverterTest {
         e.setId(Constants.NO_ID);
         diabetesData1.setId(Constants.NO_ID);
         e.setDiabetesDataAndUpdateDate(Arrays.asList(diabetesData1));
-        EntryDAO dao = sut.entryToEntryDAO(e);
+        EntryRecord dao = sut.entryToEntryDAO(e);
         Assert.assertNull(dao.getId());
         Assert.assertNull(dao.getDiabetesData().get(0).getId());
     }
     //endregion
 
-    private void compareEntryWithEntryDAO(Entry e, EntryDAO dao) {
+    private void compareEntryWithEntryDAO(Entry e, EntryRecord dao) {
         Assert.assertNotNull(e);
         Assert.assertNotNull(dao);
         Assert.assertEquals(e.getId(), (long) dao.getId());
@@ -148,7 +148,7 @@ public class DAOConverterTest {
         Assert.assertEquals(e.getDataCreatedAt(), dao.getDataCreatedAt());
     }
 
-    private void compareDiabetesDataToDAO(DiabetesData diabetesData, DiabetesDataDAO dao) {
+    private void compareDiabetesDataToDAO(DiabetesData diabetesData, DiabetesDataRecord dao) {
         Assert.assertNotNull(diabetesData);
         Assert.assertNotNull(dao);
         Assert.assertEquals(diabetesData.getDate(), dao.getDate());
@@ -166,12 +166,12 @@ public class DAOConverterTest {
         return entry;
     }
 
-    private EntryDAO createTestEntryDAOWithDiabetesData() {
-        EntryDAO entry = new EntryDAO();
+    private EntryRecord createTestEntryDAOWithDiabetesData() {
+        EntryRecord entry = new EntryRecord();
         entry.setNote(TEST_NOTE);
         entry.setCreatedAt(TEST_DATE);
         entry.setId(TEST_ID);
-        entry.setDiabetesData(Arrays.asList(diabetesDataDAO1, diabetesDataDAO2));
+        entry.setDiabetesData(Arrays.asList(diabetesDataRecord1, diabetesDataRecord2));
         return entry;
     }
 

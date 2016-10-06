@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.fha.bwi50101.common.DAOConverter;
 import de.fha.bwi50101.common.model.Entry;
-import de.fha.bwi50101.common.persistance.EntryDAO;
+import de.fha.bwi50101.common.persistance.EntryRecord;
 import de.fha.bwi50101.common.persistance.Repository;
 
 /**
@@ -22,7 +22,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Entry save(Entry entry) {
-        EntryDAO entryDAO = daoConverter.entryToEntryDAO(entry);
+        EntryRecord entryRecord = daoConverter.entryToEntryDAO(entry);
 
         return null;
     }

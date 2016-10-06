@@ -10,23 +10,23 @@ import java.util.List;
  * Created by Florian on 06.10.2016.
  */
 
-public class EntryDAO extends SugarRecord {
+public class EntryRecord extends SugarRecord {
     @Ignore
-    private List<DiabetesDataDAO> diabetesData;
+    private List<DiabetesDataRecord> diabetesData;
     private Date createdAt;
     private Date dataCreatedAt;
     private String note;
 
-    public EntryDAO() {
+    public EntryRecord() {
     }
 
-    public List<DiabetesDataDAO> getDiabetesData() {
+    public List<DiabetesDataRecord> getDiabetesData() {
         if (diabetesData == null)
-            diabetesData = DiabetesDataDAO.find(DiabetesDataDAO.class, "entry = ?", Long.toString(getId()));
+            diabetesData = DiabetesDataRecord.find(DiabetesDataRecord.class, "entry = ?", Long.toString(getId()));
         return diabetesData;
     }
 
-    public void setDiabetesData(List<DiabetesDataDAO> diabetesData) {
+    public void setDiabetesData(List<DiabetesDataRecord> diabetesData) {
         this.diabetesData = diabetesData;
     }
 
