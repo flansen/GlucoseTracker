@@ -1,23 +1,22 @@
-package de.fha.bwi50101.common.model;
+package de.fha.bwi50101.common.persistance;
+
+import com.orm.SugarRecord;
 
 import java.util.Date;
 
-import de.fha.bwi50101.common.Constants;
+import de.fha.bwi50101.common.model.DiabetesDataType;
 
 /**
- * Created by Florian on 03.10.2016.
+ * Created by Florian on 06.10.2016.
  */
 
-public class DiabetesData {
+public class DiabetesDataDAO extends SugarRecord {
     private DiabetesDataType diabetesDataType;
     private float value;
-    private long id;
+    private EntryDAO entry;
     private Date dataDate;
 
-    public DiabetesData() {
-        diabetesDataType = DiabetesDataType.NotAssigned;
-        id = Constants.NO_ID;
-
+    public DiabetesDataDAO() {
     }
 
 
@@ -46,19 +45,11 @@ public class DiabetesData {
         this.dataDate = dataDate;
     }
 
-    public long getId() {
-        return id;
+    public EntryDAO getEntry() {
+        return entry;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getDataDate() {
-        return dataDate;
-    }
-
-    public void setDataDate(Date dataDate) {
-        this.dataDate = dataDate;
+    public void setEntryDAO(EntryDAO entry) {
+        this.entry = entry;
     }
 }

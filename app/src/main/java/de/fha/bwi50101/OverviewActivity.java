@@ -19,11 +19,7 @@ public class OverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
         ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setTitle(actionBarTitle);
-
-
     }
 }

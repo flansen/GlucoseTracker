@@ -1,34 +1,41 @@
 package de.fha.bwi50101.common.model;
 
-import com.orm.SugarRecord;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import de.fha.bwi50101.common.Constants;
 
 /**
  * Created by Florian on 03.10.2016.
  */
-public class Entry extends SugarRecord {
+public class Entry {
     private List<DiabetesData> diabetesData;
     private Date createdAt;
     private Date dataCreatedAt;
     private String note;
+    private long id;
 
     public Entry() {
+        diabetesData = new ArrayList<>();
+        id = Constants.NO_ID;
     }
 
     public List<DiabetesData> getDiabetesData() {
-        if (diabetesData == null)
-            diabetesData = DiabetesData.find(DiabetesData.class, "entry = ?", Long.toString(getId()));
         return diabetesData;
     }
 
-    public void setDiabetesData(List<DiabetesData> diabetesData) {
+    public void setDiabetesDataAndUpdateDate(List<DiabetesData> diabetesData) {
         this.diabetesData = diabetesData;
-        updateCreatedAt();
+        updateDataCreatedAt();
     }
 
-    private void updateCreatedAt() {
+    private void updateDataCreatedAt() {
+        dataCreatedAt = findNewestDiabetesDataDate();
+    }
+
+    private Date findNewestDiabetesDataDate() {
         Date glucoseDate = null, foodDate = null, insulinDate = null;
         for (DiabetesData d : diabetesData) {
             if (d.getType() == DiabetesDataType.Glucose) {
@@ -39,7 +46,7 @@ public class Entry extends SugarRecord {
                 insulinDate = d.getDate();
             }
         }
-        dataCreatedAt = glucoseDate != null ? glucoseDate : foodDate != null ? foodDate : insulinDate;
+        return dataCreatedAt = glucoseDate != null ? glucoseDate : foodDate != null ? foodDate : insulinDate;
     }
 
     public Date getCreatedAt() {
@@ -64,5 +71,13 @@ public class Entry extends SugarRecord {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

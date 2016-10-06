@@ -12,16 +12,16 @@
 
         <meta-data
             android:name="DATABASE"
-            android:value="lumind.db" />
+            android:value="test1.db" />
         <meta-data
             android:name="VERSION"
-            android:value="3" />
+            android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="de.fha.bwi50101.common.model" />
+            android:value="de.fha.bwi50101.common.persistance" />
 
         <activity android:name=".OverviewActivity">
             <intent-filter>

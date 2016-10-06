@@ -8,4 +8,5 @@ public enum DiabetesDataType {
     StandardInsulin,
     Glucose,
     Food,
+    NotAssigned,
 }
