@@ -52,15 +52,11 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public List<Entry> findNewerThan(Date date) {
-        List<Entry> entries = new ArrayList<>();
         List<EntryRecord> entryRecords = Select.from(EntryRecord.class)
                 .where(Condition.prop("DATA_CREATED_AT").gt(date.getTime()))
                 .orderBy("DATA_CREATED_AT DESC")
                 .list();
-        for (EntryRecord r : entryRecords) {
-            entries.add(recordConverter.entryRecordToEntry(r));
-        }
-        return entries;
+        return convertRecordListToEntryList(entryRecords);
     }
 
     @Override
@@ -74,5 +70,21 @@ public class RepositoryImpl implements Repository {
             return recordConverter.entryRecordToEntry(entryRecord);
         }
         return null;
+    }
+
+    @Override
+    public List<Entry> findAll() {
+        List<EntryRecord> entryRecords = Select.from(EntryRecord.class)
+                .orderBy("DATA_CREATED_AT DESC")
+                .list();
+        return convertRecordListToEntryList(entryRecords);
+    }
+
+    private List<Entry> convertRecordListToEntryList(List<EntryRecord> records) {
+        List<Entry> entries = new ArrayList<>();
+        for (EntryRecord record : records) {
+            entries.add(recordConverter.entryRecordToEntry(record));
+        }
+        return entries;
     }
 }
