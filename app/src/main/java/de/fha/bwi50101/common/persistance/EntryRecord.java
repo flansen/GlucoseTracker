@@ -22,7 +22,7 @@ public class EntryRecord extends SugarRecord {
 
     public List<DiabetesDataRecord> getDiabetesData() {
         if (diabetesData == null)
-            diabetesData = DiabetesDataRecord.find(DiabetesDataRecord.class, "entry = ?", Long.toString(getId()));
+            diabetesData = DiabetesDataRecord.find(DiabetesDataRecord.class, "ENTRY_RECORD = ?", Long.toString(getId()));
         return diabetesData;
     }
 

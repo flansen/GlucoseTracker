@@ -57,8 +57,4 @@ public class DiabetesData {
     public Date getDataDate() {
         return dataDate;
     }
-
-    public void setDataDate(Date dataDate) {
-        this.dataDate = dataDate;
-    }
 }

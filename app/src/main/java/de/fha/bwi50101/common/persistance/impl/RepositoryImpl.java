@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.RecordConverter;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.DiabetesDataRecord;
@@ -30,6 +31,9 @@ public class RepositoryImpl implements Repository {
     public Entry save(Entry entry) {
         EntryRecord entryRecord = recordConverter.entryToEntryRecord(entry);
         entryRecord.save();
+        if (entry.getId() != Constants.NO_ID)
+            DiabetesDataRecord.deleteAll(DiabetesDataRecord.class, "ENTRY_RECORD = ?", Long.toString(entry.getId()));
+
         for (DiabetesDataRecord diabetesDataRecord : entryRecord.getDiabetesData()) {
             diabetesDataRecord.save();
         }

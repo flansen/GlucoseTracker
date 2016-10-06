@@ -116,6 +116,8 @@ public class RecordConverterTest {
 
         compareDiabetesDataToDAO(diabetesData1, d1DAO);
         compareDiabetesDataToDAO(diabetesData2, d2DAO);
+        Assert.assertEquals(e.getId(), (long) d1DAO.getEntryRecord().getId());
+        Assert.assertEquals(e.getId(), (long) d2DAO.getEntryRecord().getId());
     }
 
     @Test
