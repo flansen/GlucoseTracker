@@ -39,46 +39,43 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testSave() {
+    public void testSaveSetsIDs() {
         Entry e = createEntry();
-        Assert.assertEquals(d1.getDate(), e.getDataCreatedAt());
-
         e = sut.save(e);
-
-        Assert.assertNotSame(e.getId(), Constants.NO_ID);
-        Assert.assertNotSame(e.getDiabetesData().get(0).getId(), Constants.NO_ID);
-        Assert.assertNotSame(e.getDiabetesData().get(1).getId(), Constants.NO_ID);
+        assureIDsWereSet(e);
 
         Entry fetched = sut.findById(e.getId());
 
-        compareEntries(e, fetched);
-        compareDiabetesDataList(e.getDiabetesData(), fetched.getDiabetesData());
+        assureEntriesAreEqual(e, fetched);
+        assureDiabetesDataListIsEqual(e.getDiabetesData(), fetched.getDiabetesData());
     }
 
     @Test
-    public void testFindMostRecentGlucose() {
+    public void testSaveDatabaseEntryIsCorrect() {
         Entry e = createEntry();
-        DiabetesData d = new DiabetesData();
-        d.setType(DiabetesDataType.Glucose);
-        d.setValue(1000f);
-        Date date = new Date();
-        d.setDate(date);
-        e.setDiabetesDataAndUpdateDate(Arrays.asList(d1, d2, d));
-        Assert.assertEquals(e.getDataCreatedAt(), date);
+        e = sut.save(e);
+        Entry fetched = sut.findById(e.getId());
+        assureEntriesAreEqual(e, fetched);
+        assureDiabetesDataListIsEqual(e.getDiabetesData(), fetched.getDiabetesData());
+    }
+
+
+
+    @Test
+    public void testFindMostRecentGlucose() {
+        Entry e = createEntryWithMostRecentGlucose();
         e = sut.save(e);
         Entry fetched = sut.findMostRecentWithGlucoseValue();
-        compareEntries(e, fetched);
+        assureEntriesAreEqual(e, fetched);
     }
 
     @Test
     public void testFindNewerThan() {
-        Entry e = createEntry();
-        Date date = new Date();
-        e.setDataCreatedAt(date);
+        Entry e = createEntryWithCurrentDate();
         e = sut.save(e);
-        List<Entry> fetched = sut.findNewerThan(new Date(date.getTime() - 1L));
+        List<Entry> fetched = sut.findNewerThan(new Date(e.getDataCreatedAt().getTime() - 1L));
         Assert.assertTrue(fetched.size() == 1);
-        compareEntries(e, fetched.get(0));
+        assureEntriesAreEqual(e, fetched.get(0));
     }
 
     @Test
@@ -90,15 +87,23 @@ public class RepositoryTest {
     public void testUpdate() {
         Entry e = createEntry();
         e = sut.save(e);
-        Assert.assertEquals(2, e.getDiabetesData().size());
+        Entry fetched = sut.findById(e.getId());
+        Assert.assertEquals(2, fetched.getDiabetesData().size());
         e.setDiabetesDataAndUpdateDate(Arrays.asList(d1));
         e = sut.save(e);
-        Entry fetched = sut.findById(e.getId());
+        fetched = sut.findById(e.getId());
         Assert.assertEquals(1, fetched.getDiabetesData().size());
-        compareDiabetesData(e.getDiabetesData().get(0), fetched.getDiabetesData().get(0));
+        assureDiabetesDataAreEqual(e.getDiabetesData().get(0), fetched.getDiabetesData().get(0));
     }
 
-    private void compareDiabetesDataList(List<DiabetesData> l1, List<DiabetesData> l2) {
+    private Entry createEntryWithCurrentDate() {
+        Entry e = createEntry();
+        Date date = new Date();
+        e.setDataCreatedAt(date);
+        return e;
+    }
+
+    private void assureDiabetesDataListIsEqual(List<DiabetesData> l1, List<DiabetesData> l2) {
         DiabetesData d11, d12, d21 = null, d22 = null;
         d11 = l1.get(0);
         d12 = l1.get(1);
@@ -112,18 +117,18 @@ public class RepositoryTest {
         Assert.assertNotNull(d12);
         Assert.assertNotNull(d21);
         Assert.assertNotNull(d22);
-        compareDiabetesData(d11, d21);
-        compareDiabetesData(d12, d22);
+        assureDiabetesDataAreEqual(d11, d21);
+        assureDiabetesDataAreEqual(d12, d22);
     }
 
-    private void compareDiabetesData(DiabetesData d1, DiabetesData d2) {
+    private void assureDiabetesDataAreEqual(DiabetesData d1, DiabetesData d2) {
         Assert.assertEquals(d1.getDate(), d2.getDate());
         Assert.assertEquals(d1.getId(), d2.getId());
         Assert.assertEquals(d1.getType(), d2.getType());
         Assert.assertEquals(d1.getValue(), d2.getValue());
     }
 
-    private void compareEntries(Entry e1, Entry e2) {
+    private void assureEntriesAreEqual(Entry e1, Entry e2) {
         Assert.assertEquals(e1.getId(), e2.getId());
         Assert.assertEquals(e1.getCreatedAt(), e2.getCreatedAt());
         Assert.assertEquals(e1.getDataCreatedAt(), e2.getDataCreatedAt());
@@ -149,5 +154,23 @@ public class RepositoryTest {
         d2.setType(DiabetesDataType.Food);
         e.setDiabetesDataAndUpdateDate(Arrays.asList(d1, d2));
         return e;
+    }
+
+
+    private Entry createEntryWithMostRecentGlucose() {
+        Entry e = createEntry();
+        DiabetesData d = new DiabetesData();
+        d.setType(DiabetesDataType.Glucose);
+        d.setValue(1000f);
+        Date date = new Date();
+        d.setDate(date);
+        e.setDiabetesDataAndUpdateDate(Arrays.asList(d1, d2, d));
+        return e;
+    }
+
+    private void assureIDsWereSet(Entry e) {
+        Assert.assertNotSame(e.getId(), Constants.NO_ID);
+        Assert.assertNotSame(e.getDiabetesData().get(0).getId(), Constants.NO_ID);
+        Assert.assertNotSame(e.getDiabetesData().get(1).getId(), Constants.NO_ID);
     }
 }
