@@ -140,6 +140,7 @@ public class RecordConverterTest {
     }
     //endregion
 
+
     private void compareEntryWithEntryDAO(Entry e, EntryRecord dao) {
         Assert.assertNotNull(e);
         Assert.assertNotNull(dao);

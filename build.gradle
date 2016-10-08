@@ -40,8 +40,14 @@ ext {
     guavaVersion = '19.0'
     sugarOrmVersion = '1.5'
     stethoVersion = '1.3.1'
+
+    //Testing
     mockitoCore = '1.+'
+    espressoVersion = '2.2.2'
     mockitoCoreAndroid = '2.1.0'
     supportTestRunnerVersion = '0.5'
     dexMakerVersion = '1.2'
+    robolectricVersion = '3.1.2'
+    assertJCoreVersion = '3.5.2'
+    openGLVersion = 'gl1.1-android-2.1_r1'
 }
