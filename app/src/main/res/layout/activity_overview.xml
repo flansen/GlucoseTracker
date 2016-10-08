@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/activity_overview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="de.fha.bwi50101.OverviewActivity">
+    tools:context="de.fha.bwi50101.overview.OverviewActivity">
 
-    <android.support.design.widget.AppBarLayout
+
+    <include
+        android:id="@+id/overview_toolbar"
+        layout="@layout/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/overview_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/Toolbar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/overview_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:fabSize="normal" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/overview_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/overview_toolbar"
         android:layout_gravity="top" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/overview_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/overview_tab_layout" />
 
-</LinearLayout>
+</RelativeLayout>

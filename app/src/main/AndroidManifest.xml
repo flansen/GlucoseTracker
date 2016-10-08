@@ -23,7 +23,7 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="de.fha.bwi50101.common.persistance" />
 
-        <activity android:name=".OverviewActivity">
+        <activity android:name=".overview.OverviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

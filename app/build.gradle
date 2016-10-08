@@ -52,4 +52,5 @@ dependencies {
     compile "com.facebook.stetho:stetho-okhttp:$rootProject.stethoVersion"
 
     compile project(path: ':cleanboilerplate_dagger')
+    compile 'com.android.support:support-v4:24.2.1'
 }

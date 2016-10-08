@@ -1,14 +1,15 @@
 package de.fha.bwi50101;
 
+import android.app.Application;
+
 import com.facebook.stetho.Stetho;
-import com.orm.SugarApp;
 import com.orm.SugarContext;
 
 /**
  * Created by Florian on 03.10.2016.
  */
 
-public class LumindApplication extends SugarApp {
+public class LumindApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
