@@ -1,5 +1,6 @@
 package de.fha.bwi50101.overview.statistic.impl;
 
+import de.fha.bwi50101.overview.statistic.FetchAllEntriesInteractor;
 import de.fha.bwi50101.overview.statistic.StatisticsFragmentPresenter;
 
 /**
@@ -7,6 +8,13 @@ import de.fha.bwi50101.overview.statistic.StatisticsFragmentPresenter;
  */
 
 public class StatisticsFragmentPresenterImpl implements StatisticsFragmentPresenter {
+
+    private FetchAllEntriesInteractor interactor;
+
+    public StatisticsFragmentPresenterImpl() {
+
+    }
+
     @Override
     public void resume() {
 

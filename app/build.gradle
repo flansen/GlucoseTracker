@@ -27,23 +27,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':cleanboilerplate_dagger')
+    compile project(':cleanboilerplate')
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+    //compile project(path: ':cleanboilerplate_dagger')
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-
-//region test
+    //region test
     testCompile "junit:junit:$rootProject.junitVersion"
     testCompile "org.mockito:mockito-core:$rootProject.mockitoCore"
     testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
     testCompile "org.assertj:assertj-core:$rootProject.assertJCoreVersion"
     testCompile "org.khronos:opengl-api:$rootProject.openGLVersion"
-//endregion
-
+    //endregion
     //region androidTest
     androidTestCompile "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
     androidTestCompile "org.mockito:mockito-core:$rootProject.mockitoCoreAndroid"
@@ -51,8 +50,7 @@ dependencies {
     androidTestCompile "com.google.dexmaker:dexmaker:$rootProject.dexMakerVersion"
     androidTestCompile "com.google.dexmaker:dexmaker-mockito:$rootProject.dexMakerVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
-//endregion
-
+    //endregion
     //region vendor
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"

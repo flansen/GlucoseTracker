@@ -19,7 +19,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
-import de.fha.bwi50101.create.CreateEntryActivity;
+import de.fha.bwi50101.create_edit.CreateEditActivity;
 import de.fha.bwi50101.overview.home.HomeFragment;
 import de.fha.bwi50101.overview.impl.OverviewPresenterImpl;
 import de.fha.bwi50101.overview.statistic.StatisticsFragment;
@@ -81,7 +81,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
     public void onClick(View v) {
         if (v == createActionButton) {
             presenter.onCreateClicked();
-            Intent intent = new Intent(this, CreateEntryActivity.class);
+            Intent intent = new Intent(this, CreateEditActivity.class);
             startActivity(intent);
         }
     }

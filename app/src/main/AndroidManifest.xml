@@ -29,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".create.CreateEntryActivity"></activity>
+        <activity android:name=".create_edit.CreateEntryActivity" />
+        <activity android:name=".create_edit.CreateEditActivity"></activity>
     </application>
 
 </manifest>

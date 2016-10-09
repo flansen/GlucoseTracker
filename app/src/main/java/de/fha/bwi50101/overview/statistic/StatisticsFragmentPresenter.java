@@ -7,4 +7,7 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
  */
 
 public interface StatisticsFragmentPresenter extends BasePresenter {
+    interface View {
+
+    }
 }

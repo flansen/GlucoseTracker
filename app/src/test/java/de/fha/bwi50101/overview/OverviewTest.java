@@ -12,7 +12,7 @@ import org.robolectric.annotation.Config;
 
 import de.fha.bwi50101.BuildConfig;
 import de.fha.bwi50101.R;
-import de.fha.bwi50101.create.CreateEntryActivity;
+import de.fha.bwi50101.create_edit.CreateEditActivity;
 
 import static org.robolectric.Shadows.shadowOf;
 
@@ -36,7 +36,7 @@ public class OverviewTest {
     public void clickCreate_shouldFireIntent() {
         OverviewActivity activity = Robolectric.setupActivity(OverviewActivity.class);
         activity.findViewById(R.id.fab_create).performClick();
-        Intent expectedIntent = new Intent(activity, CreateEntryActivity.class);
+        Intent expectedIntent = new Intent(activity, CreateEditActivity.class);
         Assert.assertTrue(expectedIntent.filterEquals(shadowOf(activity).getNextStartedActivity()));
     }
 

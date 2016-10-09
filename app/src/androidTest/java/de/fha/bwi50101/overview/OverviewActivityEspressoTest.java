@@ -13,13 +13,11 @@ import android.support.test.runner.lifecycle.Stage;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 import java.util.Collection;
 
 import de.fha.bwi50101.R;
-import de.fha.bwi50101.common.RecordConverter;
-import de.fha.bwi50101.create.CreateEntryActivity;
+import de.fha.bwi50101.create_edit.CreateEditActivity;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -38,18 +36,10 @@ public class OverviewActivityEspressoTest {
         Espresso.onView(ViewMatchers.withId(R.id.fab_create))
                 .perform(ViewActions.click());
         Activity activity = getActivityInstance();
-        boolean b = (activity instanceof CreateEntryActivity);
+        boolean b = (activity instanceof CreateEditActivity);
         assertTrue(b);
     }
 
-    @Test
-    public void testPresenterOnClickCalled() {
-        RecordConverter mock = Mockito.mock(RecordConverter.class);
-        //((OverviewActivity) getActivityInstance()).setPresenter(mock);
-        Espresso.onView(ViewMatchers.withId(R.id.fab_create))
-                .perform(ViewActions.click());
-        //verify(mock).onCreateClicked();
-    }
 
     //http://www.vogella.com/tutorials/AndroidTestingEspresso/article.html#espresso_usageintroduction_viewaction
     public Activity getActivityInstance() {
