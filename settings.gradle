@@ -1,1 +1,1 @@
-include ':app', ':cleanboilerplate_dagger'
+include ':app', ':cleanboilerplate'
