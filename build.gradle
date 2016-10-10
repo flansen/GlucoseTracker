@@ -49,5 +49,6 @@ ext {
     dexMakerVersion = '1.2'
     robolectricVersion = '3.1.2'
     assertJCoreVersion = '3.5.2'
+    powerMockVersion = '1.6.5'
     openGLVersion = 'gl1.1-android-2.1_r1'
 }

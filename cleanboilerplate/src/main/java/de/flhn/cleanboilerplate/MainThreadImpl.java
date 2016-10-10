@@ -27,6 +27,7 @@ public class MainThreadImpl implements MainThread {
         return sMainThread;
     }
 
+
     @Override
     public void post(Runnable runnable) {
         mHandler.post(runnable);
