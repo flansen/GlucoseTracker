@@ -17,9 +17,14 @@ public class DiabetesData {
     public DiabetesData() {
         diabetesDataType = DiabetesDataType.NotAssigned;
         id = Constants.NO_ID;
-
     }
 
+    public DiabetesData(DiabetesDataType diabetesDataType, float value, long id, Date dataDate) {
+        this.diabetesDataType = diabetesDataType;
+        this.value = value;
+        this.id = id;
+        this.dataDate = dataDate;
+    }
 
     public DiabetesDataType getType() {
         return diabetesDataType;

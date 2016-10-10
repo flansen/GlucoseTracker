@@ -22,6 +22,7 @@ import de.fha.bwi50101.R;
 import de.fha.bwi50101.create_edit.CreateEditActivity;
 import de.fha.bwi50101.overview.home.HomeFragment;
 import de.fha.bwi50101.overview.impl.OverviewPresenterImpl;
+import de.fha.bwi50101.overview.statistic.EntryVM;
 import de.fha.bwi50101.overview.statistic.StatisticsFragment;
 
 
@@ -61,7 +62,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
     private Fragment[] createFragments() {
         fragments = new HashMap<>();
         fragments.put(HomeFragment.class, HomeFragment.newInstance());
-        fragments.put(StatisticsFragment.class, StatisticsFragment.newIntance());
+        fragments.put(StatisticsFragment.class, StatisticsFragment.newInstance());
         return fragments.values().toArray(new Fragment[0]);
     }
 

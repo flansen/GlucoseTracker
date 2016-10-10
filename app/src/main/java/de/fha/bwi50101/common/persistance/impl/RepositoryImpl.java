@@ -9,6 +9,7 @@ import java.util.List;
 
 import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.RecordConverter;
+import de.fha.bwi50101.common.impl.RecordConverterImpl;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.DiabetesDataRecord;
 import de.fha.bwi50101.common.persistance.EntryRecord;
@@ -17,15 +18,20 @@ import de.fha.bwi50101.common.persistance.Repository;
 /**
  * Created by Florian on 06.10.2016.
  */
-//DiabetesDataRecord ddr = DiabetesDataRecord.find(DiabetesDataRecord.class, "VALUE = (SELECT max(VALUE) FROM DIABETES_DATA_RECORD)", null).get(0);
-
 public class RepositoryImpl implements Repository {
+    private static volatile Repository instance;
     private RecordConverter recordConverter;
 
-    public RepositoryImpl(RecordConverter recordConverter) {
+    private RepositoryImpl(RecordConverter recordConverter) {
         this.recordConverter = recordConverter;
     }
 
+    public static Repository getInstance() {
+        if (instance == null) {
+            instance = new RepositoryImpl(new RecordConverterImpl());
+        }
+        return instance;
+    }
 
     @Override
     public Entry save(Entry entry) {

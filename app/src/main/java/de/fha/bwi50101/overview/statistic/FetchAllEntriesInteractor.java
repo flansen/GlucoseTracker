@@ -12,4 +12,5 @@ public interface FetchAllEntriesInteractor {
     interface Callback {
         void onEntriesLoaded(List<Entry> entries);
     }
+
 }

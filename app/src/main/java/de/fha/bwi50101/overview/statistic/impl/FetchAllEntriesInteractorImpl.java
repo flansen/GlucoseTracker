@@ -18,7 +18,7 @@ public class FetchAllEntriesInteractorImpl extends AbstractInteractor implements
     private final Repository repository;
     private final Callback callback;
 
-    public FetchAllEntriesInteractorImpl(Repository repository, Callback callback, MainThread mainThread, Executor executor) {
+    public FetchAllEntriesInteractorImpl(MainThread mainThread, Executor executor, Repository repository, Callback callback) {
         super(executor, mainThread);
         this.repository = repository;
         this.callback = callback;

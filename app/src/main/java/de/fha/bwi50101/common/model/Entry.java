@@ -22,6 +22,14 @@ public class Entry {
         id = Constants.NO_ID;
     }
 
+    public Entry(List<DiabetesData> diabetesData, Date createdAt, Date dataCreatedAt, String note, long id) {
+        this.diabetesData = diabetesData;
+        this.createdAt = createdAt;
+        this.dataCreatedAt = dataCreatedAt;
+        this.note = note;
+        this.id = id;
+    }
+
     public List<DiabetesData> getDiabetesData() {
         return diabetesData;
     }

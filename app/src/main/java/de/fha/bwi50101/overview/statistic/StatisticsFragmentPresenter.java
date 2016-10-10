@@ -1,5 +1,7 @@
 package de.fha.bwi50101.overview.statistic;
 
+import java.util.List;
+
 import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
 
 /**
@@ -7,7 +9,11 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
  */
 
 public interface StatisticsFragmentPresenter extends BasePresenter {
-    interface View {
+    void loadEntries();
 
+    void setInteractor(FetchAllEntriesInteractor interactor);
+
+    interface View {
+        void onEntriesLoaded(List<EntryVM> entryVM);
     }
 }
