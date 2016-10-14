@@ -14,25 +14,25 @@ import de.fha.bwi50101.create_edit.ViewPagerHolder;
  * Created by Florian on 07.05.2016.
  */
 public abstract class LumindSliderHandler implements SliderEventListener {
-    private static final String TAG = "LumindSliderHandler";
     private static final int MIN_MAX_TIMERTASK_INTERVAL = 25;
-    private float timertaskDelta;
-    private float previousSliderValue = -2f;
+    private float timerTaskDelta;
+    private float previousSliderValue;
     private Timer timer;
     private Handler handler;
     private LumindSlider lumindSlider;
 
 
-    public LumindSliderHandler(float timertaskDelta, LumindSlider slider) {
-        this.timertaskDelta = timertaskDelta;
+    public LumindSliderHandler(LumindSlider slider) {
+        this.timerTaskDelta = 0.01f;
         this.lumindSlider = slider;
+        previousSliderValue = -2f;
         handler = new Handler();
-        onHandlerCreated();
+        onLumindSliderHandlerCreated();
     }
 
     public abstract String getSliderLabelString();
 
-    public abstract void onHandlerCreated();
+    public abstract void onLumindSliderHandlerCreated();
 
     public abstract void onUpdate(float delta);
 
@@ -62,14 +62,14 @@ public abstract class LumindSliderHandler implements SliderEventListener {
     public void onMaxTop() {
         if (timer != null) return;
         timer = new Timer("maxTimer");
-        timer.scheduleAtFixedRate(new SliderClippingTimerTask(-timertaskDelta), 0, MIN_MAX_TIMERTASK_INTERVAL);
+        timer.scheduleAtFixedRate(new SliderClippingTimerTask(-timerTaskDelta), 0, MIN_MAX_TIMERTASK_INTERVAL);
     }
 
     @Override
     public void onMinBottom() {
         if (timer != null) return;
         timer = new Timer("minTimer");
-        timer.scheduleAtFixedRate(new SliderClippingTimerTask(timertaskDelta), 0, MIN_MAX_TIMERTASK_INTERVAL);
+        timer.scheduleAtFixedRate(new SliderClippingTimerTask(timerTaskDelta), 0, MIN_MAX_TIMERTASK_INTERVAL);
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 import de.fha.bwi50101.common.Constants;
-import de.fha.bwi50101.common.impl.RecordConverterImpl;
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
@@ -35,7 +34,7 @@ public class RepositoryTest {
     public void setUp() {
         Context appContext = InstrumentationRegistry.getTargetContext();
         SugarContext.init(appContext);
-        sut = new RepositoryImpl(new RecordConverterImpl());
+        sut = RepositoryImpl.getInstance();
     }
 
     @Test

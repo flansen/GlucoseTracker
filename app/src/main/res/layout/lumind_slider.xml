@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <lumind.de.lumind_android.ui.RoundRectSliderView
+        android:id="@+id/slider_circle_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:backgroundColorValue="@color/grey"
+        app:strokeColorValue="@color/colorPrimary"
+        app:strokeWidthSize="0"
+        app:subtitleColor="@color/white"
+        app:subtitleSize="9dp"
+        app:subtitleText="subtitle"
+        app:titleColor="@color/white"
+        app:titleSize="20dp"
+        app:titleText="title" />
+
+</merge>
