@@ -1,5 +1,6 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.create_edit.insulin.InsulinFragmentPresenter;
 
 /**
@@ -7,6 +8,10 @@ import de.fha.bwi50101.create_edit.insulin.InsulinFragmentPresenter;
  */
 
 public class InsulinFragmentPresenterImpl implements InsulinFragmentPresenter {
+    public InsulinFragmentPresenterImpl(Entry entry) {
+
+    }
+
     @Override
     public void resume() {
 

@@ -54,9 +54,8 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         pagerAdapter = new OverviewPagerAdapter(getSupportFragmentManager(), createFragments());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        this.presenter = new OverviewPresenterImpl();
+        presenter = new OverviewPresenterImpl();
         presenter.resume();
-
     }
 
     private Fragment[] createFragments() {

@@ -1,5 +1,6 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.create_edit.note.NoteFragmentPresenter;
 
 /**
@@ -7,6 +8,10 @@ import de.fha.bwi50101.create_edit.note.NoteFragmentPresenter;
  */
 
 public class NoteFragmentPresenterImpl implements NoteFragmentPresenter {
+    public NoteFragmentPresenterImpl(Entry entry) {
+
+    }
+
     @Override
     public void resume() {
 
