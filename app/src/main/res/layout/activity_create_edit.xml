@@ -16,13 +16,13 @@
         android:id="@+id/create_edit_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/overview_toolbar"
+        android:layout_below="@id/create_edit_tab_layout"
         android:layout_gravity="top" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/create_edit_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/overview_tab_layout" />
+        android:layout_below="@id/create_edit_view_pager" />
 
 </RelativeLayout>

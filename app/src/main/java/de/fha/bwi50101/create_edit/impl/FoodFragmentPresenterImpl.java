@@ -8,7 +8,10 @@ import de.fha.bwi50101.create_edit.food.FoodFragmentPresenter;
  */
 
 public class FoodFragmentPresenterImpl implements FoodFragmentPresenter {
+    private Entry entry;
+
     public FoodFragmentPresenterImpl(Entry entry) {
+        this.entry = entry;
 
     }
 

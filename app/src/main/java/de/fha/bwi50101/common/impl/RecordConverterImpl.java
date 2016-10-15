@@ -40,6 +40,7 @@ public class RecordConverterImpl implements RecordConverter {
             d.setValue(record.getValue());
             d.setDate(record.getDate());
             d.setId(record.getId());
+            d.setActive(true);
             diabetesDataList.add(d);
         }
         return diabetesDataList;
@@ -65,8 +66,10 @@ public class RecordConverterImpl implements RecordConverter {
     private List<DiabetesDataRecord> createRecordsFromDiabetesData(List<DiabetesData> diabetesData, EntryRecord entryRecord) {
         List<DiabetesDataRecord> diabetesDataRecordList = new ArrayList<>();
         for (DiabetesData d : diabetesData) {
-            DiabetesDataRecord r = createRecordFromDiabetesData(d, entryRecord);
-            diabetesDataRecordList.add(r);
+            if (d.isActive()) {
+                DiabetesDataRecord r = createRecordFromDiabetesData(d, entryRecord);
+                diabetesDataRecordList.add(r);
+            }
         }
         return diabetesDataRecordList;
     }

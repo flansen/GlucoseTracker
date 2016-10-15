@@ -1,5 +1,7 @@
 package de.fha.bwi50101.common.model;
 
+import com.orm.dsl.Ignore;
+
 import java.util.Date;
 
 import de.fha.bwi50101.common.Constants;
@@ -13,10 +15,13 @@ public class DiabetesData {
     private float value;
     private long id;
     private Date dataDate;
+    @Ignore
+    private boolean isActive;
 
     public DiabetesData() {
         diabetesDataType = DiabetesDataType.NotAssigned;
         id = Constants.NO_ID;
+        isActive = false;
     }
 
     public DiabetesData(DiabetesDataType diabetesDataType, float value, long id, Date dataDate) {
@@ -57,5 +62,13 @@ public class DiabetesData {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

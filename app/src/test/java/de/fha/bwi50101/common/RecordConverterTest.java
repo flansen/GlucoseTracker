@@ -48,12 +48,14 @@ public class RecordConverterTest {
         diabetesData1.setValue(TEST_VALUE_1);
         diabetesData1.setDate(TEST_DIABETES_DATE);
         diabetesData1.setType(DiabetesDataType.Glucose);
+        diabetesData1.setActive(true);
 
         diabetesData2 = new DiabetesData();
         diabetesData2.setId(TEST_ID_DATA2);
         diabetesData2.setValue(TEST_VALUE_2);
         diabetesData2.setDate(TEST_DIABETES_DATE);
         diabetesData2.setType(DiabetesDataType.Food);
+        diabetesData2.setActive(true);
 
         diabetesDataRecord1 = new DiabetesDataRecord();
         diabetesDataRecord1.setValue(TEST_VALUE_1);
@@ -158,6 +160,7 @@ public class RecordConverterTest {
         Assert.assertEquals(diabetesData.getId(), (long) dao.getId());
         Assert.assertEquals(diabetesData.getType(), dao.getType());
         Assert.assertEquals(diabetesData.getValue(), dao.getValue());
+        Assert.assertTrue(diabetesData.isActive());
     }
 
     private Entry createTestEntryWithDiabetesData() {
