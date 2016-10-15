@@ -49,9 +49,6 @@ public class CreateEditActivity extends AppCompatActivity implements ViewPagerHo
                 this
         );
         createOrRecreateEntry(getIntent());
-        pagerAdapter = new CreateEditPagerAdapter(getSupportFragmentManager(), createFragments());
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void createOrRecreateEntry(Intent intent) {
@@ -102,5 +99,12 @@ public class CreateEditActivity extends AppCompatActivity implements ViewPagerHo
             progressDialog.hide();
             progressDialog = null;
         }
+    }
+
+    @Override
+    public void createTabs() {
+        pagerAdapter = new CreateEditPagerAdapter(getSupportFragmentManager(), createFragments());
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

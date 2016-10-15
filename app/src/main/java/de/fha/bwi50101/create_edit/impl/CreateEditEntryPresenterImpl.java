@@ -53,6 +53,7 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
     @Override
     public void createNewEntry() {
         entry = new Entry();
+        view.createTabs();
     }
 
     @Override
@@ -74,5 +75,6 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
     public void entryFound(Entry entry) {
         this.entry = entry;
         view.finishLoading();
+        view.createTabs();
     }
 }

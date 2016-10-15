@@ -18,5 +18,7 @@ public interface CreateEditEntryPresenter extends BasePresenter {
         void displayLoading();
 
         void finishLoading();
+
+        void createTabs();
     }
 }
