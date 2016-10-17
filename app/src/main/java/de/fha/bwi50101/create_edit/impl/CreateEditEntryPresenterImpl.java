@@ -4,6 +4,7 @@ import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.Repository;
 import de.fha.bwi50101.create_edit.CreateEditEntryPresenter;
 import de.fha.bwi50101.create_edit.FetchEntryForIdInteractor;
+import de.fha.bwi50101.create_edit.SaveEntryInteractor;
 import de.flhn.cleanboilerplate.domain.executor.Executor;
 import de.flhn.cleanboilerplate.domain.executor.MainThread;
 
@@ -11,7 +12,7 @@ import de.flhn.cleanboilerplate.domain.executor.MainThread;
  * Created by Florian on 09.10.2016.
  */
 
-public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, FetchEntryForIdInteractor.Callback {
+public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, FetchEntryForIdInteractor.Callback, SaveEntryInteractor.Callback {
     private final MainThread mainThread;
     private final Executor threadExecutor;
     private final Repository repository;
@@ -58,7 +59,7 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
 
     @Override
     public void loadEntryForId(long id) {
-        view.displayLoading();
+        view.showLoading();
         new FetchEntryForIdInteractorImpl(threadExecutor, mainThread, repository, id, this).execute();
     }
 
@@ -72,7 +73,8 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
 
     @Override
     public void onSaveClicked() {
-        System.out.println(entry);
+        new SaveEntryInteractorImpl(threadExecutor, mainThread, this, repository, entry).execute();
+        view.showLoading();
     }
 
     @Override
@@ -80,5 +82,11 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
         this.entry = entry;
         view.finishLoading();
         view.createTabs();
+    }
+
+    @Override
+    public void entrySaved(Entry entry) {
+        view.finishLoading();
+        view.finishWithEntryResult(entry);
     }
 }

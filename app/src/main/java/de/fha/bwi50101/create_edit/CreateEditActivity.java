@@ -115,7 +115,7 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
     }
 
     @Override
-    public void displayLoading() {
+    public void showLoading() {
         if (progressDialog == null) {
             progressDialog = ProgressDialog.show(this, "Loading data...",
                     "Loading. Please wait...", true);
@@ -136,5 +136,13 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
         viewPager.setOffscreenPageLimit(6);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void finishWithEntryResult(Entry entry) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(Constants.CREATE_EDIT_RESULT, entry.getId());
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }

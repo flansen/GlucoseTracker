@@ -9,6 +9,7 @@ import android.graphics.Color;
 public class Constants {
     public static final long NO_ID = -1;
     public static final String BUNDLE_ENTRY_ID_KEY = "entry";
+    public static final String CREATE_EDIT_RESULT = "result_entry_id";
 
     public static class COLORS {
         public static int GREY = Color.rgb(0, 0, 0);

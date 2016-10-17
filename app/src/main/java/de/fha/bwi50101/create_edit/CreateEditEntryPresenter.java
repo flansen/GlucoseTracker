@@ -17,10 +17,12 @@ public interface CreateEditEntryPresenter extends BasePresenter {
     void onSaveClicked();
 
     interface View {
-        void displayLoading();
+        void showLoading();
 
         void finishLoading();
 
         void createTabs();
+
+        void finishWithEntryResult(Entry entry);
     }
 }
