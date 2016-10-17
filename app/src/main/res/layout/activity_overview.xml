@@ -9,11 +9,14 @@
     tools:context="de.fha.bwi50101.overview.OverviewActivity">
 
 
-    <include
+    <android.support.v7.widget.Toolbar
         android:id="@+id/overview_toolbar"
-        layout="@layout/appbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_create"
