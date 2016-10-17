@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +38,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
     @BindView(R.id.overview_tab_layout)
     TabLayout tabLayout;
 
-    private Map<Class, Fragment> fragments;
+    private Map<Class<? extends Fragment>, Fragment> fragments;
 
     private OverviewPagerAdapter pagerAdapter;
     private OverviewPresenter presenter;
@@ -59,7 +59,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
     }
 
     private Fragment[] createFragments() {
-        fragments = new HashMap<>();
+        fragments = new LinkedHashMap<>();
         fragments.put(HomeFragment.class, HomeFragment.newInstance());
         fragments.put(StatisticsFragment.class, StatisticsFragment.newInstance());
         return fragments.values().toArray(new Fragment[0]);

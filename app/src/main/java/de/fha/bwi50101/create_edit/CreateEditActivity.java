@@ -9,7 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +34,7 @@ public class CreateEditActivity extends AppCompatActivity implements ViewPagerHo
     @BindView(R.id.create_edit_view_pager)
     ViewPager viewPager;
     private CreateEditEntryPresenter presenter;
-    private HashMap<Class<? extends Fragment>, Fragment> fragments;
+    private Map<Class<? extends Fragment>, Fragment> fragments;
     private CreateEditPagerAdapter pagerAdapter;
     private ProgressDialog progressDialog;
 
@@ -61,7 +62,7 @@ public class CreateEditActivity extends AppCompatActivity implements ViewPagerHo
     }
 
     private Fragment[] createFragments() {
-        fragments = new HashMap<>();
+        fragments = new LinkedHashMap<>();
         fragments.put(GlucoseFragment.class, GlucoseFragment.newInstance());
         fragments.put(InsulinFragment.class, InsulinFragment.newInstance());
         fragments.put(FoodFragment.class, FoodFragment.newInstance());
