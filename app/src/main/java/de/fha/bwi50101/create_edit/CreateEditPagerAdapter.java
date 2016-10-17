@@ -13,6 +13,7 @@ public class CreateEditPagerAdapter extends FragmentPagerAdapter {
 
     public CreateEditPagerAdapter(FragmentManager fm, Fragment[] fragments) {
         super(fm);
+        this.fragments = fragments;
     }
 
     @Override
