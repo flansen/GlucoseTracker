@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -26,13 +25,13 @@ import de.fha.bwi50101.create_edit.note.NoteFragment;
 import de.flhn.cleanboilerplate.MainThreadImpl;
 import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
 
-public class CreateEditActivity extends AppCompatActivity implements ViewPagerHolder, EntryProvider, CreateEditEntryPresenter.View {
+public class CreateEditActivity extends AppCompatActivity implements DisableableViewPagerHolder, EntryProvider, CreateEditEntryPresenter.View {
     @BindView(R.id.create_edit_tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.create_edit_toolbar)
     Toolbar toolbar;
     @BindView(R.id.create_edit_view_pager)
-    ViewPager viewPager;
+    DisableableViewPager viewPager;
     private CreateEditEntryPresenter presenter;
     private Map<Class<? extends Fragment>, Fragment> fragments;
     private CreateEditPagerAdapter pagerAdapter;
@@ -79,6 +78,16 @@ public class CreateEditActivity extends AppCompatActivity implements ViewPagerHo
     public void bringViewPagerToBackground() {
         tabLayout.bringToFront();
         toolbar.bringToFront();
+    }
+
+    @Override
+    public void enableViewPaging() {
+        viewPager.setViewPagingEnabled(true);
+    }
+
+    @Override
+    public void disableViewPaging() {
+        viewPager.setViewPagingEnabled(false);
     }
 
     @Override

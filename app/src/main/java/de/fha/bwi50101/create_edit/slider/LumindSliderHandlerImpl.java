@@ -7,7 +7,7 @@ import android.os.Handler;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.fha.bwi50101.create_edit.ViewPagerHolder;
+import de.fha.bwi50101.create_edit.DisableableViewPagerHolder;
 
 
 /**
@@ -89,8 +89,8 @@ public abstract class LumindSliderHandlerImpl implements SliderEventListener, Lu
             timer = null;
         }
         Activity host = lumindSlider.getHostingActivity();
-        if (host instanceof ViewPagerHolder) {
-            ((ViewPagerHolder) host).bringViewPagerToBackground();
+        if (host instanceof DisableableViewPagerHolder) {
+            ((DisableableViewPagerHolder) host).bringViewPagerToBackground();
         }
         lumindSlider.setBackgroundColor(Color.TRANSPARENT);
     }
@@ -98,8 +98,8 @@ public abstract class LumindSliderHandlerImpl implements SliderEventListener, Lu
     @Override
     public void onSliderStart() {
         Activity host = lumindSlider.getHostingActivity();
-        if (host instanceof ViewPagerHolder) {
-            ((ViewPagerHolder) host).bringViewPagerToFront();
+        if (host instanceof DisableableViewPagerHolder) {
+            ((DisableableViewPagerHolder) host).bringViewPagerToFront();
         }
         previousSliderValue = 0.5f;
     }
