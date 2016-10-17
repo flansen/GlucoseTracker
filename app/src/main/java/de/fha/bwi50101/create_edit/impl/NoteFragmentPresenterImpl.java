@@ -8,8 +8,10 @@ import de.fha.bwi50101.create_edit.note.NoteFragmentPresenter;
  */
 
 public class NoteFragmentPresenterImpl implements NoteFragmentPresenter {
-    public NoteFragmentPresenterImpl(Entry entry) {
+    private Entry entry;
 
+    public NoteFragmentPresenterImpl(Entry entry) {
+        this.entry = entry;
     }
 
     @Override

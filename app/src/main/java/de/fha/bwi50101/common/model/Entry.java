@@ -57,6 +57,37 @@ public class Entry {
         return dataCreatedAt = glucoseDate != null ? glucoseDate : foodDate != null ? foodDate : insulinDate;
     }
 
+    public boolean hasDiabetesDataOfType(DiabetesDataType type) {
+        for (DiabetesData d : diabetesData) {
+            if (d.getType() == type) return true;
+        }
+        return false;
+    }
+
+    public DiabetesData getDiabetesDataOfType(DiabetesDataType type) {
+        for (DiabetesData d : diabetesData) {
+            if (d.getType() == type) return d;
+        }
+        throw new NoSuchDiabetesDataException(type);
+    }
+
+    public void addOrReplaceDiabetesData(DiabetesData diabetesData) {
+        if (hasDiabetesDataOfType(diabetesData.getType())) {
+            replaceDiabetesData(diabetesData);
+        } else {
+            this.diabetesData.add(diabetesData);
+            updateDataCreatedAt();
+        }
+    }
+
+    private void replaceDiabetesData(DiabetesData diabetesData) {
+        for (int i = 0; i < this.diabetesData.size(); i++) {
+            if (this.diabetesData.get(i).getType() != diabetesData.getType())
+                continue;
+            this.diabetesData.set(i, diabetesData);
+        }
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }

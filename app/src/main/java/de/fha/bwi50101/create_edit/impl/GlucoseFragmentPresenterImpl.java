@@ -1,5 +1,7 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import de.fha.bwi50101.common.model.DiabetesData;
+import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.create_edit.glucose.GlucoseFragmentPresenter;
 
@@ -8,8 +10,18 @@ import de.fha.bwi50101.create_edit.glucose.GlucoseFragmentPresenter;
  */
 
 public class GlucoseFragmentPresenterImpl implements GlucoseFragmentPresenter {
-    public GlucoseFragmentPresenterImpl(Entry entry) {
+    private DiabetesData diabetesData;
+    private Entry entry;
 
+    public GlucoseFragmentPresenterImpl(Entry entry) {
+        this.entry = entry;
+        if (entry.hasDiabetesDataOfType(DiabetesDataType.Glucose)) {
+            diabetesData = entry.getDiabetesDataOfType(DiabetesDataType.Glucose);
+        } else {
+            diabetesData = new DiabetesData();
+            diabetesData.setType(DiabetesDataType.Glucose);
+            entry.addOrReplaceDiabetesData(diabetesData);
+        }
     }
 
     @Override

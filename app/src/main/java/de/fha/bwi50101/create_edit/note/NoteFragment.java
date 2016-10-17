@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
-import de.fha.bwi50101.create_edit.CreateEditActivity;
+import de.fha.bwi50101.create_edit.EntryProvider;
 import de.fha.bwi50101.create_edit.impl.NoteFragmentPresenterImpl;
 
 /**
@@ -26,7 +26,7 @@ public class NoteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new NoteFragmentPresenterImpl(((CreateEditActivity) getActivity()).getEntry());
+        presenter = new NoteFragmentPresenterImpl(((EntryProvider) getActivity()).getEntry());
     }
 
     @Nullable

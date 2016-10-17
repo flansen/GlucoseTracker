@@ -140,6 +140,15 @@ public class RecordConverterTest {
         Assert.assertNull(dao.getId());
         Assert.assertNull(dao.getDiabetesData().get(0).getId());
     }
+
+    @Test
+    public void testShouldDropInActiveDD() {
+        Entry e = createTestEntryWithDiabetesData();
+        e.getDiabetesData().get(1).setActive(false);
+        EntryRecord dao = sut.entryToEntryRecord(e);
+        Assert.assertEquals(1, dao.getDiabetesData().size());
+        compareDiabetesDataToDAO(e.getDiabetesData().get(0), dao.getDiabetesData().get(0));
+    }
     //endregion
 
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
-import de.fha.bwi50101.create_edit.CreateEditActivity;
+import de.fha.bwi50101.create_edit.EntryProvider;
 import de.fha.bwi50101.create_edit.impl.InsulinFragmentPresenterImpl;
 
 /**
@@ -26,7 +26,7 @@ public class InsulinFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new InsulinFragmentPresenterImpl(((CreateEditActivity) getActivity()).getEntry());
+        presenter = new InsulinFragmentPresenterImpl(((EntryProvider) getActivity()).getEntry());
     }
 
     @Nullable
