@@ -17,4 +17,9 @@ public interface LumindSliderHandler {
     void setSliderColorAndAlpha(int color, int alpha);
 
     void setBackgroundColor(int color);
+
+    void deactivate();
+
+    void onHandlerSet();
+
 }

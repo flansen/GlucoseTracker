@@ -29,7 +29,7 @@ public class LumindSlider extends RelativeLayout {
     private boolean isTouched, isActive = false;
 
 
-    private LumindSliderHandlerImpl handler;
+    private AbstractLumindSliderHandler handler;
 
     public LumindSlider(Context context) {
         super(context);
@@ -169,7 +169,7 @@ public class LumindSlider extends RelativeLayout {
         return roundRectSliderView;
     }
 
-    public void setHandler(LumindSliderHandlerImpl handler) {
+    public void setHandler(AbstractLumindSliderHandler handler) {
         this.handler = handler;
         handler.onHandlerSet();
     }

@@ -10,6 +10,8 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
 public interface GlucoseFragmentPresenter extends BasePresenter {
     void setView(View view);
 
+    void resetClicked();
+
     interface View {
         LumindSlider getSlider();
 

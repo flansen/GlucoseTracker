@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,8 @@ import de.fha.bwi50101.create_edit.slider.LumindSlider;
 public class GlucoseFragment extends Fragment implements GlucoseFragmentPresenter.View {
     @BindView(R.id.glucose_slider)
     LumindSlider slider;
+    @BindView(R.id.glucose_reset)
+    Button resetButton;
 
 
     private GlucoseFragmentPresenter presenter;
@@ -43,6 +46,12 @@ public class GlucoseFragment extends Fragment implements GlucoseFragmentPresente
         View view = inflater.inflate(R.layout.fragment_glucose, container, false);
         ButterKnife.bind(this, view);
         presenter.setView(this);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.resetClicked();
+            }
+        });
         return view;
 
     }

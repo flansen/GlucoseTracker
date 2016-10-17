@@ -7,22 +7,23 @@ import android.os.Handler;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.create_edit.DisableableViewPagerHolder;
 
 
 /**
  * Created by Florian on 07.05.2016.
  */
-public abstract class LumindSliderHandlerImpl implements SliderEventListener, LumindSliderHandler {
+public abstract class AbstractLumindSliderHandler implements SliderEventListener, LumindSliderHandler {
     private static final int MIN_MAX_TIMERTASK_INTERVAL = 25;
+    protected LumindSlider lumindSlider;
     private float timerTaskDelta;
     private float previousSliderValue;
     private Timer timer;
     private Handler handler;
-    private LumindSlider lumindSlider;
 
 
-    public LumindSliderHandlerImpl(LumindSlider slider) {
+    public AbstractLumindSliderHandler(LumindSlider slider) {
         this.timerTaskDelta = 0.01f;
         this.lumindSlider = slider;
         previousSliderValue = -2f;
@@ -45,6 +46,7 @@ public abstract class LumindSliderHandlerImpl implements SliderEventListener, Lu
         lumindSlider.setBackgroundColor(color);
     }
 
+
     @Override
     public void onHandlerSet() {
         setSliderLabelString();
@@ -66,7 +68,6 @@ public abstract class LumindSliderHandlerImpl implements SliderEventListener, Lu
         afterUpdate();
     }
 
-
     @Override
     public void onMaxTop() {
         if (timer != null) return;
@@ -79,6 +80,11 @@ public abstract class LumindSliderHandlerImpl implements SliderEventListener, Lu
         if (timer != null) return;
         timer = new Timer("minTimer");
         timer.scheduleAtFixedRate(new SliderClippingTimerTask(timerTaskDelta), 0, MIN_MAX_TIMERTASK_INTERVAL);
+    }
+
+    @Override
+    public void deactivate() {
+        setSliderColorAndAlpha(Constants.COLORS.GREY, Constants.COLORS.QUARTER_OPAC);
     }
 
     @Override
