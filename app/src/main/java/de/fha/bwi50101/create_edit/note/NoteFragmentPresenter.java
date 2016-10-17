@@ -7,4 +7,13 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
  */
 
 public interface NoteFragmentPresenter extends BasePresenter {
+    void resetClicked();
+
+    void setView(View view);
+
+    void onNoteTextChanged(String text);
+
+    interface View {
+        void resetNote();
+    }
 }

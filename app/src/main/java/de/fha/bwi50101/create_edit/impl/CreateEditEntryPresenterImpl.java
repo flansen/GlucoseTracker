@@ -64,11 +64,15 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
 
     @Override
     public Entry getEntry() {
-        //FIXME: This might break the code. When editing, the fetch for entry may be faster than the db request.
         if (entry == null) {
             throw new RuntimeException("Somebody wanted to get CreateEntryPresenters Entry but it was null.");
         }
         return entry;
+    }
+
+    @Override
+    public void onSaveClicked() {
+        System.out.println(entry);
     }
 
     @Override

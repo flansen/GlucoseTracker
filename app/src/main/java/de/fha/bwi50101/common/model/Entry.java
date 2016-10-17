@@ -39,7 +39,7 @@ public class Entry {
         updateDataCreatedAt();
     }
 
-    private void updateDataCreatedAt() {
+    public void updateDataCreatedAt() {
         dataCreatedAt = findNewestDiabetesDataDate();
     }
 

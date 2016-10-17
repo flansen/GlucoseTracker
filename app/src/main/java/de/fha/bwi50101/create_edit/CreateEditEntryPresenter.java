@@ -14,6 +14,8 @@ public interface CreateEditEntryPresenter extends BasePresenter {
 
     Entry getEntry();
 
+    void onSaveClicked();
+
     interface View {
         void displayLoading();
 

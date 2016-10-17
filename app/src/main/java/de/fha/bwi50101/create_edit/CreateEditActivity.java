@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -48,14 +50,31 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
                 RepositoryImpl.getInstance(),
                 this
         );
+        setSupportActionBar(toolbar);
         createOrRecreateEntry(getIntent());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_edit_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.create_edit_done) {
+            presenter.onSaveClicked();
+        }
+        return false;
     }
 
     private void createOrRecreateEntry(Intent intent) {
         if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey(Constants.BUNDLE_ENTRY_ID_KEY)) {
             long id = intent.getLongExtra(Constants.BUNDLE_ENTRY_ID_KEY, -1);
+            getSupportActionBar().setTitle("Edit Entry");
             presenter.loadEntryForId(id);
         } else {
+            getSupportActionBar().setTitle("Create Entry");
             presenter.createNewEntry();
         }
     }
