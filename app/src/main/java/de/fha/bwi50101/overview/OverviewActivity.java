@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
+import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.create_edit.CreateEditActivity;
 import de.fha.bwi50101.overview.home.HomeFragment;
 import de.fha.bwi50101.overview.impl.OverviewPresenterImpl;
@@ -27,6 +29,7 @@ import de.fha.bwi50101.overview.statistic.StatisticsFragment;
 
 
 public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View, View.OnClickListener {
+    private static final int CREATE_EDIT_ENTRY_CODE = 1256;
     @BindView(R.id.overview_toolbar)
     Toolbar toolbar;
     @BindString(R.string.action_bar_title_overview)
@@ -82,7 +85,17 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         if (v == createActionButton) {
             presenter.onCreateClicked();
             Intent intent = new Intent(this, CreateEditActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, CREATE_EDIT_ENTRY_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CREATE_EDIT_ENTRY_CODE) {
+            if (resultCode == RESULT_OK) {
+                long id = data.getLongExtra(Constants.CREATE_EDIT_RESULT, -1);
+                Toast.makeText(this, "Successfully saved Entry with id < " + id + ">", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

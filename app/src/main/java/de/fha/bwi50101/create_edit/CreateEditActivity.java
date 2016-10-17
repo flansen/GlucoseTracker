@@ -136,6 +136,7 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
         viewPager.setOffscreenPageLimit(6);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        toolbar.bringToFront();
     }
 
     @Override
