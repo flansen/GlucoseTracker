@@ -114,6 +114,7 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
     @Override
     public void createTabs() {
         pagerAdapter = new CreateEditPagerAdapter(getSupportFragmentManager(), createFragments());
+        viewPager.setOffscreenPageLimit(6);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

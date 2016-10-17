@@ -26,7 +26,6 @@ public class GlucoseFragment extends Fragment implements GlucoseFragmentPresente
     @BindView(R.id.glucose_reset)
     Button resetButton;
 
-
     private GlucoseFragmentPresenter presenter;
 
     public static GlucoseFragment newInstance() {
