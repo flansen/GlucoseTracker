@@ -34,15 +34,17 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
         Collections.sort(entryList, new Comparator<Entry>() {
             @Override
             public int compare(Entry o1, Entry o2) {
-                if (o1.getDataCreatedAt() != null && o2.getDataCreatedAt() != null)
-                    return o2.getDataCreatedAt().compareTo(o1.getDataCreatedAt());
-                return o2.getCreatedAt().compareTo(o1.getCreatedAt());
+                return o2.getDataCreatedAt().compareTo(o1.getDataCreatedAt());
             }
         });
         List<ListItem> entryVMs = new LinkedList<>();
         Date currentDate = null;
+        if (entryList.size() > 0) {
+            currentDate = entryList.get(0).getDataCreatedAt();
+            addSectionVMForDate(currentDate, entryVMs);
+        }
         for (Entry entry : entryList) {
-            if (currentDate == null || !dateIsSameDay(currentDate, entry.getCreatedAt())) {
+            if (!dateIsSameDay(currentDate, entry.getDataCreatedAt())) {
                 currentDate = entry.getDataCreatedAt();
                 addSectionVMForDate(currentDate, entryVMs);
             }
