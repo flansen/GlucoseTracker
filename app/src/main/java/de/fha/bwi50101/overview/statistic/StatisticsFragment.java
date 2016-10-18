@@ -18,7 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindString;
@@ -130,8 +129,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
     @Override
     public void reloadList() {
-        listAdapter = new StatisticsListAdapter(this.getContext(), new LinkedList<ListItem>());
-        listView.setAdapter(listAdapter);
+        createListAndAdapter();
         presenter.loadEntries();
     }
 
