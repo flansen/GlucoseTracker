@@ -54,8 +54,8 @@ public class NoteFragment extends Fragment implements NoteFragmentPresenter.View
         return view;
     }
 
-    public String getNote() {
-        return noteInputLayout.getEditText().getText().toString();
+    public void setPresenter(NoteFragmentPresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override

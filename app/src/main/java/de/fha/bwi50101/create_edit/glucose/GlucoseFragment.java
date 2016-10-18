@@ -58,6 +58,10 @@ public class GlucoseFragment extends AbstractSliderFragment implements GlucoseFr
         return view;
     }
 
+    public void setPresenter(GlucoseFragmentPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     private class GlucoseSliderHandler extends AbstractLumindSliderHandler {
         private static final float SLIDER_TO_VALUE_FACTOR = 90;
 

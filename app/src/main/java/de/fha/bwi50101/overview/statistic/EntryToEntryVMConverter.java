@@ -9,5 +9,5 @@ import de.fha.bwi50101.common.model.Entry;
  */
 
 public interface EntryToEntryVMConverter {
-    List<EntryVM> toEntryVMList(List<Entry> entryList);
+    List<ListItem> toSectionedVMList(List<Entry> entryList);
 }

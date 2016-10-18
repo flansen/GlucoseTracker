@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="12dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="12dp">
+
+
+    <ImageView
+        android:id="@+id/stat_item_glucose_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:cropToPadding="false"
+        android:src="@drawable/ic_blood" />
+
+    <TextView
+        android:id="@+id/stat_item_glucose_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/stat_item_glucose_image"
+        android:text="250"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stat_item_glucose_text"
+        android:layout_toRightOf="@id/stat_item_glucose_text"
+        android:paddingLeft="2dp"
+        android:text="mg/dl"
+        android:textSize="10sp" />
+
+
+    <ImageView
+        android:id="@+id/stat_item_insulin_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_insulin" />
+
+    <TextView
+        android:id="@+id/stat_item_insulin_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/stat_item_insulin_image"
+        android:text="10"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stat_item_insulin_text"
+        android:layout_toRightOf="@id/stat_item_insulin_text"
+        android:paddingLeft="2dp"
+        android:text="IU"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/stat_item_food_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_food" />
+
+    <TextView
+        android:id="@+id/stat_item_food_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/stat_item_food_image"
+        android:text="18"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/stat_item_food_text"
+        android:layout_toRightOf="@id/stat_item_food_text"
+        android:paddingLeft="2dp"
+        android:text="BU"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/stat_item_note_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stat_item_glucose_image"
+        android:paddingLeft="4dp"
+        android:paddingTop="8dp"
+        android:text="This seems to be a very long note, right?" />
+</RelativeLayout>

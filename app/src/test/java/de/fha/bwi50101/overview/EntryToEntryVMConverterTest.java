@@ -39,7 +39,7 @@ public class EntryToEntryVMConverterTest extends BaseData {
 
     @Test
     public void shouldCall_ConverterConvert() {
-        sut.toEntryVMList(mockEntryList());
+        sut.toSectionedVMList(mockEntryList());
         Mockito.verify(converterMock, Mockito.times(mockList.size())).dateToOverviewDateString(Mockito.any(Date.class));
     }
 
@@ -47,7 +47,7 @@ public class EntryToEntryVMConverterTest extends BaseData {
     public void testConversionResult() {
         Mockito.when(converterMock.dateToOverviewDateString(Mockito.any(Date.class))).thenReturn("01/01");
         List<Entry> localMockList = Arrays.asList(mockEntryList().get(0));
-        List<EntryVM> entryVMs = sut.toEntryVMList(localMockList);
+        List<EntryVM> entryVMs = sut.toSectionedVMList(localMockList);
         compareConversionResult(entryVMs, localMockList);
     }
 

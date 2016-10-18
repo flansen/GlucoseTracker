@@ -4,8 +4,8 @@ import java.util.List;
 
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.overview.statistic.EntryToEntryVMConverter;
-import de.fha.bwi50101.overview.statistic.EntryVM;
 import de.fha.bwi50101.overview.statistic.FetchAllEntriesInteractor;
+import de.fha.bwi50101.overview.statistic.ListItem;
 import de.fha.bwi50101.overview.statistic.StatisticsFragmentPresenter;
 
 /**
@@ -44,8 +44,10 @@ public class StatisticsFragmentPresenterImpl implements StatisticsFragmentPresen
 
     @Override
     public void loadEntries() {
-        if (interactor != null)
+        if (interactor != null) {
             ((FetchAllEntriesInteractorImpl) interactor).execute();
+            view.showLoading();
+        }
     }
 
     @Override
@@ -60,7 +62,8 @@ public class StatisticsFragmentPresenterImpl implements StatisticsFragmentPresen
 
     @Override
     public void onEntriesLoaded(List<Entry> entries) {
-        List<EntryVM> entryVMList = entryConverter.toEntryVMList(entries);
+        List<ListItem> entryVMList = entryConverter.toSectionedVMList(entries);
+        view.hideLoading();
         view.onEntriesLoaded(entryVMList);
     }
 }

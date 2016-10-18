@@ -1,5 +1,7 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import java.util.Date;
+
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.Repository;
 import de.fha.bwi50101.create_edit.CreateEditEntryPresenter;
@@ -54,6 +56,7 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
     @Override
     public void createNewEntry() {
         entry = new Entry();
+        entry.setCreatedAt(new Date());
         view.createTabs();
     }
 
@@ -73,6 +76,7 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
 
     @Override
     public void onSaveClicked() {
+        entry.updateDataCreatedAt();
         new SaveEntryInteractorImpl(threadExecutor, mainThread, this, repository, entry).execute();
         view.showLoading();
     }

@@ -14,6 +14,10 @@ public interface StatisticsFragmentPresenter extends BasePresenter {
     void setInteractor(FetchAllEntriesInteractor interactor);
 
     interface View {
-        void onEntriesLoaded(List<EntryVM> entryVM);
+        void showLoading();
+
+        void hideLoading();
+
+        void onEntriesLoaded(List<ListItem> entryVM);
     }
 }

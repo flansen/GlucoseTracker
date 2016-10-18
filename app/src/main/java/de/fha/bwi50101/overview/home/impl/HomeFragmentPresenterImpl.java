@@ -7,6 +7,8 @@ import de.fha.bwi50101.overview.home.HomeFragmentPresenter;
  */
 
 public class HomeFragmentPresenterImpl implements HomeFragmentPresenter {
+    private View view;
+
     @Override
     public void resume() {
 
@@ -30,5 +32,10 @@ public class HomeFragmentPresenterImpl implements HomeFragmentPresenter {
     @Override
     public void onError(String message) {
 
+    }
+
+    @Override
+    public void setView(View view) {
+        this.view = view;
     }
 }

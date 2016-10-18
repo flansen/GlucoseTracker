@@ -15,7 +15,7 @@ import de.fha.bwi50101.overview.home.impl.HomeFragmentPresenterImpl;
  * Created by Florian on 08.10.2016.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeFragmentPresenter.View {
     private HomeFragmentPresenter presenter;
 
     public static HomeFragment newInstance() {
@@ -26,7 +26,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new HomeFragmentPresenterImpl();
-        presenter.resume();
     }
 
     @Nullable
@@ -34,6 +33,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        presenter.setView(this);
         return view;
     }
 }

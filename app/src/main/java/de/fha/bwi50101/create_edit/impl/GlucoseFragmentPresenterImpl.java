@@ -1,10 +1,11 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import java.util.Date;
+
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.create_edit.glucose.GlucoseFragmentPresenter;
-import de.fha.bwi50101.create_edit.slider.AbstractLumindSliderHandler;
 
 /**
  * Created by Florian on 14.10.2016.
@@ -17,7 +18,6 @@ public class GlucoseFragmentPresenterImpl implements GlucoseFragmentPresenter {
     private DiabetesData diabetesData;
     private Entry entry;
     private View view;
-    private AbstractLumindSliderHandler sliderHandler;
 
     public GlucoseFragmentPresenterImpl(Entry entry) {
         this.entry = entry;
@@ -27,6 +27,7 @@ public class GlucoseFragmentPresenterImpl implements GlucoseFragmentPresenter {
             diabetesData = new DiabetesData();
             diabetesData.setType(DiabetesDataType.Glucose);
             diabetesData.setValue(DEFAULT_VALUE);
+            diabetesData.setDate(new Date());
             entry.addOrReplaceDiabetesData(diabetesData);
         }
     }
@@ -77,11 +78,6 @@ public class GlucoseFragmentPresenterImpl implements GlucoseFragmentPresenter {
         float newValue = Math.max(Math.min(diabetesData.getValue() - delta, MAX_VALUE), MIN_VALUE);
         diabetesData.setValue(newValue);
         diabetesData.setActive(true);
-    }
-
-    private void resetSlider() {
-        sliderHandler.deactivate();
-        sliderHandler.setSliderLabelString();
     }
 
     private void resetModel() {

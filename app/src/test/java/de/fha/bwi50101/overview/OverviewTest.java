@@ -21,7 +21,6 @@ import static org.robolectric.Shadows.shadowOf;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 22)
-
 public class OverviewTest {
     @Test
     public void clickCreate_shouldExecutePresenterOnCreate() {

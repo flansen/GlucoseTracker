@@ -49,7 +49,7 @@ public class StatisticsFragmentPresenterTest extends BaseData {
     public void shouldCall_ConverterConvert() {
         List<Entry> mockEntries = mockEntryList();
         ((FetchAllEntriesInteractor.Callback) sut).onEntriesLoaded(mockEntries);
-        Mockito.verify(converterMock, Mockito.times(1)).toEntryVMList(mockEntries);
+        Mockito.verify(converterMock, Mockito.times(1)).toSectionedVMList(mockEntries);
     }
 
     @Test

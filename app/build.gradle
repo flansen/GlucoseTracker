@@ -40,6 +40,7 @@ dependencies {
     testCompile "junit:junit:$rootProject.junitVersion"
     testCompile "org.mockito:mockito-core:$rootProject.mockitoCore"
     testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
+    testCompile "org.robolectric:shadows-support-v4:$rootProject.robolectricVersion"
     testCompile "org.assertj:assertj-core:$rootProject.assertJCoreVersion"
     testCompile "org.khronos:opengl-api:$rootProject.openGLVersion"
     testCompile "org.powermock:powermock-api-mockito:$rootProject.powerMockVersion"

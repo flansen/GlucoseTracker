@@ -56,6 +56,10 @@ public class InsulinFragment extends AbstractSliderFragment implements InsulinFr
 
     }
 
+    public void setPresenter(InsulinFragmentPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     private class InsulinSliderHandler extends AbstractLumindSliderHandler {
         private static final float SLIDER_TO_VALUE_FACTOR = 15;
         private static final String SUBTITLE = " units";

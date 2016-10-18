@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_graph"
-        android:icon="@drawable/ic_insert_chart_black_24dp"
+        android:icon="@drawable/ic_graph"
         android:title="Graph"
         app:showAsAction="always" />
 </menu>

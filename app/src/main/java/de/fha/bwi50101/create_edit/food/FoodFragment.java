@@ -55,6 +55,10 @@ public class FoodFragment extends AbstractSliderFragment implements FoodFragment
         return view;
     }
 
+    public void setPresenter(FoodFragmentPresenter presenter) {
+        this.presenter = presenter;
+    }
+
     private class FoodSliderHandler extends AbstractLumindSliderHandler {
         private static final float SLIDER_TO_VALUE_FACTOR = 15;
         private static final String SUBTITLE = " bread units";

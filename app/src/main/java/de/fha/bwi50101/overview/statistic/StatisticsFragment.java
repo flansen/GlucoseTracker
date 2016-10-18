@@ -1,6 +1,9 @@
 package de.fha.bwi50101.overview.statistic;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,9 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
 import de.fha.bwi50101.common.impl.DateConverterImpl;
@@ -26,7 +35,15 @@ import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
  */
 
 public class StatisticsFragment extends Fragment implements StatisticsFragmentPresenter.View {
+    @BindView(R.id.statistics_list)
+    ListView listView;
+    @BindString(R.string.statistics_list_empty)
+    String listEmptyString;
+    @BindView(R.id.statistics_empty_list)
+    TextView emptyListView;
     private StatisticsFragmentPresenter presenter;
+    private ProgressDialog progressDialog;
+    private StatisticsListAdapter listAdapter;
 
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
@@ -56,7 +73,15 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
+        createListAndAdapter();
         return view;
+    }
+
+    private void createListAndAdapter() {
+        listView.setEmptyView(emptyListView);
+
+        listAdapter = new StatisticsListAdapter(this.getContext(), new ArrayList<ListItem>());
+        listView.setAdapter(listAdapter);
     }
 
     @Override
@@ -66,7 +91,103 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     }
 
     @Override
-    public void onEntriesLoaded(List<EntryVM> entryVM) {
+    public void showLoading() {
+        if (progressDialog == null)
+            progressDialog = ProgressDialog.show(this.getContext(), "Loading Entries", "Please wait a second...", true, false);
+    }
 
+    @Override
+    public void hideLoading() {
+        if (progressDialog != null) {
+            progressDialog.hide();
+            progressDialog = null;
+        }
+    }
+
+    @Override
+    public void onEntriesLoaded(List<ListItem> entryVMs) {
+        listAdapter.addAll(entryVMs);
+    }
+
+    static class StatisticsViewHolderItem {
+        @BindView(R.id.stat_item_food_text)
+        TextView foodText;
+        @BindView(R.id.stat_item_glucose_text)
+        TextView glucoseText;
+        @BindView(R.id.stat_item_insulin_text)
+        TextView insulinText;
+        @BindView(R.id.stat_item_note_text)
+        TextView noteText;
+
+        private StatisticsViewHolderItem(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    static class StatisticsViewDividerItem {
+        @BindView(R.id.stat_divider_date_text)
+        TextView dateText;
+
+        private StatisticsViewDividerItem(View v) {
+            ButterKnife.bind(this, v);
+        }
+    }
+
+    private class StatisticsListAdapter extends ArrayAdapter<ListItem> {
+        private LayoutInflater layoutInflater;
+
+        public StatisticsListAdapter(Context context, List<ListItem> objects) {
+            super(context, 0, objects);
+            layoutInflater = LayoutInflater.from(getContext());
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v;
+            ListItem item = getItem(position);
+            if (item == null) {
+                throw new RuntimeException("Item in Adapter was null.");
+            }
+            if (item.isSection()) {
+                v = inflateSectionItemView((SectionVM) item);
+            } else {
+                v = inflateEntryItemView((EntryVM) item);
+            }
+            return v;
+        }
+
+        private View inflateSectionItemView(SectionVM sectionVM) {
+            View v;
+            v = layoutInflater.inflate(R.layout.fragment_statistics_list_divider, null);
+            StatisticsViewDividerItem holder = new StatisticsViewDividerItem(v);
+            holder.dateText.setText(sectionVM.getDateString());
+            return v;
+        }
+
+        private View inflateEntryItemView(EntryVM vm) {
+            View v;
+            v = layoutInflater.inflate(R.layout.fragment_statistics_list_entry_item, null);
+            StatisticsViewHolderItem holder = new StatisticsViewHolderItem(v);
+            if (vm.getNoteString() == null || vm.getNoteString().isEmpty()) {
+                holder.noteText.setVisibility(View.GONE);
+            } else {
+                holder.noteText.setText(vm.getNoteString());
+            }
+            holder.foodText.setText(vm.getFoodString());
+            holder.glucoseText.setText(vm.getGlucoseString());
+            holder.insulinText.setText(vm.getInsulinString());
+            return v;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return getItem(position).isSection() == false;
+        }
     }
 }

@@ -3,11 +3,8 @@ package de.fha.bwi50101.overview.statistic;
 /**
  * Created by Florian on 08.10.2016.
  */
-public class EntryVM {
-    private String dateString, glucoseString, foodString, insulinString;
-
-    public EntryVM() {
-    }
+public class EntryVM implements ListItem {
+    private String dateString, glucoseString, foodString, insulinString, noteString, insulinUnit, foodUnit, glucoseUnit;
 
     public String getDateString() {
         return dateString;
@@ -39,5 +36,42 @@ public class EntryVM {
 
     public void setInsulinString(String insulinString) {
         this.insulinString = insulinString;
+    }
+
+    public String getNoteString() {
+        return noteString;
+    }
+
+    public void setNoteString(String noteString) {
+        this.noteString = noteString;
+    }
+
+    public String getInsulinUnit() {
+        return insulinUnit;
+    }
+
+    public void setInsulinUnit(String insulinUnit) {
+        this.insulinUnit = insulinUnit;
+    }
+
+    public String getFoodUnit() {
+        return foodUnit;
+    }
+
+    public void setFoodUnit(String foodUnit) {
+        this.foodUnit = foodUnit;
+    }
+
+    public String getGlucoseUnit() {
+        return glucoseUnit;
+    }
+
+    public void setGlucoseUnit(String glucoseUnit) {
+        this.glucoseUnit = glucoseUnit;
+    }
+
+    @Override
+    public boolean isSection() {
+        return false;
     }
 }

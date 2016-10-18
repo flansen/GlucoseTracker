@@ -1,6 +1,11 @@
 package de.fha.bwi50101.overview.statistic.impl;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.fha.bwi50101.common.DateConverter;
@@ -9,6 +14,8 @@ import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.overview.statistic.EntryToEntryVMConverter;
 import de.fha.bwi50101.overview.statistic.EntryVM;
+import de.fha.bwi50101.overview.statistic.ListItem;
+import de.fha.bwi50101.overview.statistic.SectionVM;
 
 /**
  * Created by Florian on 10.10.2016.
@@ -23,12 +30,42 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
     }
 
     @Override
-    public List<EntryVM> toEntryVMList(List<Entry> entryList) {
-        List<EntryVM> entryVMs = new ArrayList<>();
+    public List<ListItem> toSectionedVMList(List<Entry> entryList) {
+        Collections.sort(entryList, new Comparator<Entry>() {
+            @Override
+            public int compare(Entry o1, Entry o2) {
+                if (o1.getDataCreatedAt() != null && o2.getDataCreatedAt() != null)
+                    return o2.getDataCreatedAt().compareTo(o1.getDataCreatedAt());
+                return o2.getCreatedAt().compareTo(o1.getCreatedAt());
+            }
+        });
+        List<ListItem> entryVMs = new LinkedList<>();
+        Date currentDate = null;
         for (Entry entry : entryList) {
+            if (currentDate == null || !dateIsSameDay(currentDate, entry.getCreatedAt())) {
+                currentDate = entry.getDataCreatedAt();
+                addSectionVMForDate(currentDate, entryVMs);
+            }
             entryVMs.add(convertEntryToVM(entry));
         }
         return entryVMs;
+    }
+
+    private void addSectionVMForDate(Date currentDate, List<ListItem> entryVMs) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd");
+        String dateString = sdf.format(currentDate);
+        SectionVM vm = new SectionVM();
+        vm.setDateString(dateString);
+        entryVMs.add(vm);
+    }
+
+    private boolean dateIsSameDay(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     private EntryVM convertEntryToVM(Entry entry) {
@@ -44,6 +81,10 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
             else if (d.getType() == DiabetesDataType.StandardInsulin)
                 entryVM.setInsulinString(String.format(STRING_FORMAT, d.getValue()));
         }
+        entryVM.setFoodUnit("BU");
+        entryVM.setGlucoseUnit("mg/dl");
+        entryVM.setInsulinUnit("IU");
+        entryVM.setNoteString(entry.getNote());
         return entryVM;
     }
 }

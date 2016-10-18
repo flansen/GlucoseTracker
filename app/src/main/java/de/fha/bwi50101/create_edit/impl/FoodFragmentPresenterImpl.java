@@ -1,5 +1,7 @@
 package de.fha.bwi50101.create_edit.impl;
 
+import java.util.Date;
+
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
@@ -26,6 +28,7 @@ public class FoodFragmentPresenterImpl implements FoodFragmentPresenter {
             diabetesData = new DiabetesData();
             diabetesData.setType(DiabetesDataType.Food);
             diabetesData.setValue(DEFAULT_VALUE);
+            diabetesData.setDate(new Date());
             entry.addOrReplaceDiabetesData(diabetesData);
         }
     }
