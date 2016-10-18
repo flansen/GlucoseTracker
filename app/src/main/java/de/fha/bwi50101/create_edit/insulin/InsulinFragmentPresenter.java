@@ -1,6 +1,5 @@
 package de.fha.bwi50101.create_edit.insulin;
 
-import de.fha.bwi50101.create_edit.slider.LumindSlider;
 import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
 
 /**
@@ -12,13 +11,12 @@ public interface InsulinFragmentPresenter extends BasePresenter {
 
     void resetClicked();
 
+    float getSliderValue();
+
+    void sliderValueChanged(float delta);
+
     interface View {
-        LumindSlider getSlider();
-
-        void slidingStarted();
-
-        void slidingStopped();
-
-        int getSliderColor();
+        void resetSlider();
     }
+
 }
