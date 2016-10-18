@@ -30,7 +30,6 @@ public class OverviewActivityEspressoTest {
     public ActivityTestRule<OverviewActivity> mActivityRule =
             new ActivityTestRule<>(OverviewActivity.class);
 
-
     @Test
     public void testClickFAB() {
         Espresso.onView(ViewMatchers.withId(R.id.fab_create))
