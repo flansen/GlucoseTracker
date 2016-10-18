@@ -2,6 +2,7 @@ package de.fha.bwi50101.overview.statistic;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,19 +12,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
+import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.impl.DateConverterImpl;
 import de.fha.bwi50101.common.persistance.impl.RepositoryImpl;
+import de.fha.bwi50101.create_edit.CreateEditActivity;
+import de.fha.bwi50101.overview.OverviewActivity;
 import de.fha.bwi50101.overview.statistic.impl.EntryToEntryVMConverterImpl;
 import de.fha.bwi50101.overview.statistic.impl.FetchAllEntriesInteractorImpl;
 import de.fha.bwi50101.overview.statistic.impl.StatisticsFragmentPresenterImpl;
@@ -74,12 +80,25 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
         createListAndAdapter();
+        createListClickListener();
         return view;
     }
 
+    private void createListClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long entryId = ((EntryVM) listAdapter.getItem(position)).getModelId();
+                Intent startEditIntent = new Intent(StatisticsFragment.this.getContext(), CreateEditActivity.class);
+                startEditIntent.putExtra(Constants.BUNDLE_ENTRY_ID_KEY, entryId);
+                getActivity().startActivityForResult(startEditIntent, OverviewActivity.CREATE_EDIT_ENTRY_CODE);
+            }
+        });
+    }
+
+
     private void createListAndAdapter() {
         listView.setEmptyView(emptyListView);
-
         listAdapter = new StatisticsListAdapter(this.getContext(), new ArrayList<ListItem>());
         listView.setAdapter(listAdapter);
     }
@@ -99,7 +118,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     @Override
     public void hideLoading() {
         if (progressDialog != null) {
-            progressDialog.hide();
+            progressDialog.cancel();
             progressDialog = null;
         }
     }
@@ -107,6 +126,13 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     @Override
     public void onEntriesLoaded(List<ListItem> entryVMs) {
         listAdapter.addAll(entryVMs);
+    }
+
+    @Override
+    public void reloadList() {
+        listAdapter = new StatisticsListAdapter(this.getContext(), new LinkedList<ListItem>());
+        listView.setAdapter(listAdapter);
+        presenter.loadEntries();
     }
 
     static class StatisticsViewHolderItem {
@@ -189,5 +215,6 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         public boolean isEnabled(int position) {
             return getItem(position).isSection() == false;
         }
+
     }
 }

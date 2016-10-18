@@ -85,6 +85,7 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
         entryVM.setGlucoseUnit("mg/dl");
         entryVM.setInsulinUnit("IU");
         entryVM.setNoteString(entry.getNote());
+        entryVM.setModelId(entry.getId());
         return entryVM;
     }
 }

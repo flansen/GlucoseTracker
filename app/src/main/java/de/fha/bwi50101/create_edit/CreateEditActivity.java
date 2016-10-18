@@ -64,6 +64,7 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.create_edit_done) {
             presenter.onSaveClicked();
+            return true;
         }
         return false;
     }
@@ -125,7 +126,7 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
     @Override
     public void finishLoading() {
         if (progressDialog != null) {
-            progressDialog.hide();
+            progressDialog.cancel();
             progressDialog = null;
         }
     }

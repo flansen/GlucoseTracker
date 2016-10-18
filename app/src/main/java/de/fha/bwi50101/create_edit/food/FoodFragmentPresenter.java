@@ -17,5 +17,7 @@ public interface FoodFragmentPresenter extends BasePresenter {
 
     interface View {
         void resetSlider();
+
+        void recreateStateForEditing();
     }
 }

@@ -19,5 +19,7 @@ public interface StatisticsFragmentPresenter extends BasePresenter {
         void hideLoading();
 
         void onEntriesLoaded(List<ListItem> entryVM);
+
+        void reloadList();
     }
 }

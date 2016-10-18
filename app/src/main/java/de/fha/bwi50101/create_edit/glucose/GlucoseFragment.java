@@ -46,7 +46,6 @@ public class GlucoseFragment extends AbstractSliderFragment implements GlucoseFr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_glucose, container, false);
         ButterKnife.bind(this, view);
-        presenter.setView(this);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +54,17 @@ public class GlucoseFragment extends AbstractSliderFragment implements GlucoseFr
         });
         sliderHandler = new GlucoseSliderHandler(slider);
         slider.setHandler(sliderHandler);
+        presenter.setView(this);
         return view;
     }
 
     public void setPresenter(GlucoseFragmentPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void recreateStateForEditing() {
+        sliderHandler.setSliderColorAndAlpha(ColorHelper.calculateColor(presenter.getSliderValue()), Constants.COLORS.FULL_OPAC);
     }
 
     private class GlucoseSliderHandler extends AbstractLumindSliderHandler {

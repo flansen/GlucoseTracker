@@ -13,7 +13,10 @@ public interface NoteFragmentPresenter extends BasePresenter {
 
     void onNoteTextChanged(String text);
 
+    String getNote();
     interface View {
         void resetNote();
+
+        void recreateStateForeEditing();
     }
 }

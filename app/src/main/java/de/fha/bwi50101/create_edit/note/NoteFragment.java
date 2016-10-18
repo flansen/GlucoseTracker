@@ -63,6 +63,11 @@ public class NoteFragment extends Fragment implements NoteFragmentPresenter.View
         noteInputLayout.getEditText().setText(null);
     }
 
+    @Override
+    public void recreateStateForeEditing() {
+        noteInputLayout.getEditText().setText(presenter.getNote());
+    }
+
     private class NoteEditTextWatcher implements TextWatcher {
 
         @Override

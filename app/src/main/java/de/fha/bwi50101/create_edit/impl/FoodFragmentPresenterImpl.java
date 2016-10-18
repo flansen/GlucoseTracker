@@ -2,6 +2,7 @@ package de.fha.bwi50101.create_edit.impl;
 
 import java.util.Date;
 
+import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.model.DiabetesData;
 import de.fha.bwi50101.common.model.DiabetesDataType;
 import de.fha.bwi50101.common.model.Entry;
@@ -62,6 +63,9 @@ public class FoodFragmentPresenterImpl implements FoodFragmentPresenter {
     @Override
     public void setView(View view) {
         this.view = view;
+        if (diabetesData.getId() != Constants.NO_ID) {
+            view.recreateStateForEditing();
+        }
     }
 
     @Override

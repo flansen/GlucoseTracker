@@ -43,7 +43,6 @@ public class InsulinFragment extends AbstractSliderFragment implements InsulinFr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_insulin, container, false);
         ButterKnife.bind(this, view);
-        presenter.setView(this);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,12 +51,18 @@ public class InsulinFragment extends AbstractSliderFragment implements InsulinFr
         });
         sliderHandler = new InsulinSliderHandler(slider);
         slider.setHandler(sliderHandler);
+        presenter.setView(this);
         return view;
 
     }
 
     public void setPresenter(InsulinFragmentPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void recreateStateForEditing() {
+        sliderHandler.setSliderColorAndAlpha(getSliderColor(), Constants.COLORS.FULL_OPAC);
     }
 
     private class InsulinSliderHandler extends AbstractLumindSliderHandler {

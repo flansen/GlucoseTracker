@@ -49,14 +49,19 @@ public class FoodFragment extends AbstractSliderFragment implements FoodFragment
                 presenter.resetClicked();
             }
         });
-        presenter.setView(this);
         sliderHandler = new FoodSliderHandler(slider);
         slider.setHandler(sliderHandler);
+        presenter.setView(this);
         return view;
     }
 
     public void setPresenter(FoodFragmentPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void recreateStateForEditing() {
+        sliderHandler.setSliderColorAndAlpha(getSliderColor(), Constants.COLORS.FULL_OPAC);
     }
 
     private class FoodSliderHandler extends AbstractLumindSliderHandler {

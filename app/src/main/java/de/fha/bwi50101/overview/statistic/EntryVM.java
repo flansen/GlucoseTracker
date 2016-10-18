@@ -5,6 +5,7 @@ package de.fha.bwi50101.overview.statistic;
  */
 public class EntryVM implements ListItem {
     private String dateString, glucoseString, foodString, insulinString, noteString, insulinUnit, foodUnit, glucoseUnit;
+    private long modelId;
 
     public String getDateString() {
         return dateString;
@@ -73,5 +74,13 @@ public class EntryVM implements ListItem {
     @Override
     public boolean isSection() {
         return false;
+    }
+
+    public long getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(long modelId) {
+        this.modelId = modelId;
     }
 }

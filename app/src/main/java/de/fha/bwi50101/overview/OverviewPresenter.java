@@ -1,8 +1,5 @@
 package de.fha.bwi50101.overview;
 
-import java.util.List;
-
-import de.fha.bwi50101.overview.statistic.EntryVM;
 import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
 
 /**
@@ -13,7 +10,6 @@ public interface OverviewPresenter extends BasePresenter {
     void onCreateClicked();
 
     interface View {
-        void displayEntryVMs(List<EntryVM> routeVMs);
     }
 
 }

@@ -17,6 +17,8 @@ public interface InsulinFragmentPresenter extends BasePresenter {
 
     interface View {
         void resetSlider();
+
+        void recreateStateForEditing();
     }
 
 }
