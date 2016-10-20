@@ -181,7 +181,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             if (item.isSection()) {
                 v = inflateSectionItemView((SectionVM) item);
             } else {
-                v = inflateEntryItemView((EntryVM) item, position);
+                v = inflateEntryItemView((EntryVM) item, convertView);
             }
             return v;
         }
@@ -194,10 +194,15 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             return v;
         }
 
-        private View inflateEntryItemView(EntryVM vm, int position) {
-            View v;
-            v = layoutInflater.inflate(R.layout.fragment_statistics_list_entry_item, null);
-            StatisticsViewHolderItem holder = new StatisticsViewHolderItem(v);
+        private View inflateEntryItemView(EntryVM vm, View convertView) {
+            StatisticsViewHolderItem holder;
+            if (convertView != null && convertView.getTag() != null && convertView.getTag() instanceof StatisticsViewHolderItem) {
+                holder = (StatisticsViewHolderItem) convertView.getTag();
+            } else {
+                convertView = layoutInflater.inflate(R.layout.fragment_statistics_list_entry_item, null);
+                holder = new StatisticsViewHolderItem(convertView);
+                convertView.setTag(holder);
+            }
             if (vm.getNoteString() == null || vm.getNoteString().isEmpty()) {
                 holder.noteText.setVisibility(View.GONE);
             } else {
@@ -206,7 +211,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             holder.foodText.setText(vm.getFoodString());
             holder.glucoseText.setText(vm.getGlucoseString());
             holder.insulinText.setText(vm.getInsulinString());
-            return v;
+            return convertView;
         }
 
         @Override
