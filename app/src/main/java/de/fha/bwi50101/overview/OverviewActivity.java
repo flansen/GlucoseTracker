@@ -2,14 +2,12 @@ package de.fha.bwi50101.overview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,14 +22,12 @@ import de.fha.bwi50101.overview.impl.OverviewPresenterImpl;
 import de.fha.bwi50101.overview.statistic.StatisticsFragment;
 
 
-public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View, View.OnClickListener {
+public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View {
     public static final int CREATE_EDIT_ENTRY_CODE = 1256;
     @BindView(R.id.overview_toolbar)
     Toolbar toolbar;
     @BindString(R.string.action_bar_title_overview)
     String actionBarTitle;
-    @BindView(R.id.fab_create)
-    FloatingActionButton createActionButton;
     @BindView(R.id.overview_view_pager)
     ViewPager viewPager;
     @BindView(R.id.overview_tab_layout)
@@ -49,13 +45,13 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(actionBarTitle);
-        createActionButton.setOnClickListener(this);
         pagerAdapter = new OverviewPagerAdapter(getSupportFragmentManager(), createFragments());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         presenter = new OverviewPresenterImpl();
         presenter.resume();
     }
+
 
     private Fragment[] createFragments() {
         fragments = new LinkedHashMap<>();
@@ -71,13 +67,9 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == createActionButton) {
-            presenter.onCreateClicked();
-            Intent intent = new Intent(this, CreateEditActivity.class);
-            startActivityForResult(intent, CREATE_EDIT_ENTRY_CODE);
-        }
+    public void createEntryClicked() {
+        Intent intent = new Intent(this, CreateEditActivity.class);
+        startActivityForResult(intent, CREATE_EDIT_ENTRY_CODE);
     }
 
     @Override
@@ -85,12 +77,17 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         if (requestCode == CREATE_EDIT_ENTRY_CODE) {
             if (resultCode == RESULT_OK) {
                 ((StatisticsFragment) fragments.get(StatisticsFragment.class)).reloadList();
+                ((HomeFragment) fragments.get(HomeFragment.class)).loadRecentEntry();
             }
         }
     }
 
     public void setPresenter(OverviewPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    public void createAlarmClicked() {
+
     }
 }
 

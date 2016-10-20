@@ -6,4 +6,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_hint">Note</string>
     <string name="statistics_list_empty">No Entries available.</string>
+    <string name="home_recent_value_label">recent value</string>
+    <string name="home_recent_value">no data</string>
+    <string name="glucose_unit">mg/dl</string>
+    <string name="home_add_entry">Create new Entry</string>
+    <string name="home_alarms_label">Alarms</string>
+    <string name="home_alarms_create_button">Create new Alarm</string>
 </resources>

@@ -37,6 +37,11 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
                 return o2.getDataCreatedAt().compareTo(o1.getDataCreatedAt());
             }
         });
+        List<ListItem> entryVMs = createViewModelsForList(entryList);
+        return entryVMs;
+    }
+
+    private List<ListItem> createViewModelsForList(List<Entry> entryList) {
         List<ListItem> entryVMs = new LinkedList<>();
         Date currentDate = null;
         if (entryList.size() > 0) {
@@ -76,13 +81,21 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
             entryVM.setDateString(dateConverter.dateToOverviewDateString(entry.getDataCreatedAt()));
         }
         for (DiabetesData d : entry.getDiabetesData()) {
-            if (d.getType() == DiabetesDataType.Glucose)
-                entryVM.setGlucoseString(String.format(STRING_FORMAT, d.getValue()));
-            else if (d.getType() == DiabetesDataType.Food)
-                entryVM.setFoodString(String.format(STRING_FORMAT, d.getValue()));
-            else if (d.getType() == DiabetesDataType.StandardInsulin)
-                entryVM.setInsulinString(String.format(STRING_FORMAT, d.getValue()));
+            setDiabetesDataString(entryVM, d);
         }
+        return setEntryVMAttributes(entry, entryVM);
+    }
+
+    private void setDiabetesDataString(EntryVM entryVM, DiabetesData d) {
+        if (d.getType() == DiabetesDataType.Glucose)
+            entryVM.setGlucoseString(String.format(STRING_FORMAT, d.getValue()));
+        else if (d.getType() == DiabetesDataType.Food)
+            entryVM.setFoodString(String.format(STRING_FORMAT, d.getValue()));
+        else if (d.getType() == DiabetesDataType.StandardInsulin)
+            entryVM.setInsulinString(String.format(STRING_FORMAT, d.getValue()));
+    }
+
+    private EntryVM setEntryVMAttributes(Entry entry, EntryVM entryVM) {
         entryVM.setFoodUnit("BU");
         entryVM.setGlucoseUnit("mg/dl");
         entryVM.setInsulinUnit("IU");

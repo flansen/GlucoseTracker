@@ -7,7 +7,6 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
  */
 
 public interface OverviewPresenter extends BasePresenter {
-    void onCreateClicked();
 
     interface View {
     }

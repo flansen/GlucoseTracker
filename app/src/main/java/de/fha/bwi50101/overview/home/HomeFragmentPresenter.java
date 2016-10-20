@@ -9,6 +9,11 @@ import de.flhn.cleanboilerplate.presentation.presenters.base.BasePresenter;
 public interface HomeFragmentPresenter extends BasePresenter {
     void setView(HomeFragmentPresenter.View view);
 
+    void fetchMostRecentGlucoseValue();
+
     interface View {
+        void displayMostRecentValue(String displayString);
+
+        void onError();
     }
 }

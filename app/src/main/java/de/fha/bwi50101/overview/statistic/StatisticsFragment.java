@@ -124,6 +124,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
     @Override
     public void onEntriesLoaded(List<ListItem> entryVMs) {
+        listView.invalidate();
         listAdapter.addAll(entryVMs);
     }
 

@@ -7,10 +7,7 @@ import de.fha.bwi50101.overview.OverviewPresenter;
  */
 
 public class OverviewPresenterImpl implements OverviewPresenter {
-    @Override
-    public void onCreateClicked() {
 
-    }
 
     @Override
     public void resume() {
