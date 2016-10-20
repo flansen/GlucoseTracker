@@ -4,10 +4,13 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.fha.bwi50101.BaseData;
@@ -19,12 +22,13 @@ import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.overview.statistic.EntryToEntryVMConverter;
 import de.fha.bwi50101.overview.statistic.EntryVM;
 import de.fha.bwi50101.overview.statistic.ListItem;
+import de.fha.bwi50101.overview.statistic.SectionVM;
 import de.fha.bwi50101.overview.statistic.impl.EntryToEntryVMConverterImpl;
 
 /**
  * Created by Florian on 10.10.2016.
  */
-
+@RunWith(MockitoJUnitRunner.class)
 public class EntryToEntryVMConverterTest extends BaseData {
 
     EntryToEntryVMConverter sut;
@@ -49,13 +53,20 @@ public class EntryToEntryVMConverterTest extends BaseData {
         Mockito.when(converterMock.dateToOverviewDateString(Mockito.any(Date.class))).thenReturn("01/01");
         List<Entry> localMockList = Arrays.asList(mockEntryList().get(0));
         List<ListItem> entryVMs = sut.toSectionedVMList(localMockList);
-        //compareConversionResult(entryVMs, localMockList);
+        Assert.assertTrue(entryVMs.get(0) instanceof SectionVM);
+        compareConversionResult(entryVMs, localMockList);
     }
 
-    private void compareConversionResult(List<EntryVM> entryVMs, List<Entry> entryList) {
-        Assert.assertEquals(entryVMs.size(), entryList.size());
-        for (int i = 0; i < entryVMs.size(); i++) {
-            EntryVM entryVM = entryVMs.get(i);
+    private void compareConversionResult(List<ListItem> listItems, List<Entry> entryList) {
+        List<EntryVM> entryVMsList = new LinkedList<>();
+        for (ListItem li : listItems) {
+            if (li.isSection())
+                continue;
+            entryVMsList.add((EntryVM) li);
+        }
+        Assert.assertEquals(entryVMsList.size(), entryList.size());
+        for (int i = 0; i < entryVMsList.size(); i++) {
+            EntryVM entryVM = entryVMsList.get(i);
             Entry entry = entryList.get(i);
             DiabetesData food = null, glucose = null, insulin = null;
             for (DiabetesData dd : entry.getDiabetesData()) {
