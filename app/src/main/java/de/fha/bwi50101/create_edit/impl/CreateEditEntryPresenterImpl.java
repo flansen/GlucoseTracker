@@ -5,6 +5,7 @@ import java.util.Date;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.Repository;
 import de.fha.bwi50101.create_edit.CreateEditEntryPresenter;
+import de.fha.bwi50101.create_edit.DeleteEntryInteractor;
 import de.fha.bwi50101.create_edit.FetchEntryForIdInteractor;
 import de.fha.bwi50101.create_edit.SaveEntryInteractor;
 import de.flhn.cleanboilerplate.domain.executor.Executor;
@@ -14,7 +15,7 @@ import de.flhn.cleanboilerplate.domain.executor.MainThread;
  * Created by Florian on 09.10.2016.
  */
 
-public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, FetchEntryForIdInteractor.Callback, SaveEntryInteractor.Callback {
+public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, FetchEntryForIdInteractor.Callback, SaveEntryInteractor.Callback, DeleteEntryInteractor.Callback {
     private final MainThread mainThread;
     private final Executor threadExecutor;
     private final Repository repository;
@@ -82,6 +83,11 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
     }
 
     @Override
+    public void onDeleteClicked() {
+        new DeleteEntryInteractorImpl(threadExecutor, mainThread, repository, entry, this).execute();
+    }
+
+    @Override
     public void entryFound(Entry entry) {
         this.entry = entry;
         view.finishLoading();
@@ -92,5 +98,10 @@ public class CreateEditEntryPresenterImpl implements CreateEditEntryPresenter, F
     public void entrySaved(Entry entry) {
         view.finishLoading();
         view.finishWithEntryResult(entry);
+    }
+
+    @Override
+    public void onDeleted() {
+        view.finishWithEntryDeleted();
     }
 }

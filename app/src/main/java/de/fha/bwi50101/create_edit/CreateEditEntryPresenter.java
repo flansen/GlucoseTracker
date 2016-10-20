@@ -16,6 +16,8 @@ public interface CreateEditEntryPresenter extends BasePresenter {
 
     void onSaveClicked();
 
+    void onDeleteClicked();
+
     interface View {
         void showLoading();
 
@@ -24,5 +26,7 @@ public interface CreateEditEntryPresenter extends BasePresenter {
         void createTabs();
 
         void finishWithEntryResult(Entry entry);
+
+        void finishWithEntryDeleted();
     }
 }

@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -160,9 +162,11 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
     private class StatisticsListAdapter extends ArrayAdapter<ListItem> {
         private LayoutInflater layoutInflater;
+        private Map<View, Integer> viewToIntegerMap;
 
         public StatisticsListAdapter(Context context, List<ListItem> objects) {
             super(context, 0, objects);
+            viewToIntegerMap = new HashMap<>();
             layoutInflater = LayoutInflater.from(getContext());
         }
 
@@ -177,7 +181,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             if (item.isSection()) {
                 v = inflateSectionItemView((SectionVM) item);
             } else {
-                v = inflateEntryItemView((EntryVM) item);
+                v = inflateEntryItemView((EntryVM) item, position);
             }
             return v;
         }
@@ -190,7 +194,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             return v;
         }
 
-        private View inflateEntryItemView(EntryVM vm) {
+        private View inflateEntryItemView(EntryVM vm, int position) {
             View v;
             v = layoutInflater.inflate(R.layout.fragment_statistics_list_entry_item, null);
             StatisticsViewHolderItem holder = new StatisticsViewHolderItem(v);
@@ -214,6 +218,5 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         public boolean isEnabled(int position) {
             return getItem(position).isSection() == false;
         }
-
     }
 }

@@ -65,6 +65,9 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
         if (item.getItemId() == R.id.create_edit_done) {
             presenter.onSaveClicked();
             return true;
+        } else if (item.getItemId() == R.id.create_edit_delete) {
+            presenter.onDeleteClicked();
+            return true;
         }
         return false;
     }
@@ -145,6 +148,12 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Constants.CREATE_EDIT_RESULT, entry.getId());
         setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+
+    @Override
+    public void finishWithEntryDeleted() {
+        setResult(RESULT_OK);
         finish();
     }
 }

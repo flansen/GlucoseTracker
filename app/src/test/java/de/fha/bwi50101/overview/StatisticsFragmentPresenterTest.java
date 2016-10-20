@@ -11,8 +11,8 @@ import java.util.List;
 import de.fha.bwi50101.BaseData;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.overview.statistic.EntryToEntryVMConverter;
-import de.fha.bwi50101.overview.statistic.EntryVM;
 import de.fha.bwi50101.overview.statistic.FetchAllEntriesInteractor;
+import de.fha.bwi50101.overview.statistic.ListItem;
 import de.fha.bwi50101.overview.statistic.StatisticsFragmentPresenter;
 import de.fha.bwi50101.overview.statistic.impl.EntryToEntryVMConverterImpl;
 import de.fha.bwi50101.overview.statistic.impl.FetchAllEntriesInteractorImpl;
@@ -56,6 +56,6 @@ public class StatisticsFragmentPresenterTest extends BaseData {
     public void shouldCall_ViewOnEntriesLoaded() {
         List<Entry> mockEntries = mockEntryList();
         ((FetchAllEntriesInteractor.Callback) sut).onEntriesLoaded(mockEntries);
-        Mockito.verify(viewMock, Mockito.times(1)).onEntriesLoaded(Mockito.anyListOf(EntryVM.class));
+        Mockito.verify(viewMock, Mockito.times(1)).onEntriesLoaded(Mockito.anyListOf(ListItem.class));
     }
 }
