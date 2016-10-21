@@ -18,9 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -46,8 +44,8 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     ListView listView;
     @BindString(R.string.statistics_list_empty)
     String listEmptyString;
-    @BindView(R.id.statistics_empty_list)
-    TextView emptyListView;
+    //@BindView(R.id.statistics_empty_list)
+    //TextView emptyListView;
     private StatisticsFragmentPresenter presenter;
     private ProgressDialog progressDialog;
     private StatisticsListAdapter listAdapter;
@@ -75,11 +73,13 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         presenter.loadEntries();
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
+        // listView.setEmptyView(emptyListView);
         createListAndAdapter();
         createListClickListener();
         return view;
@@ -99,7 +99,6 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
 
     private void createListAndAdapter() {
-        listView.setEmptyView(emptyListView);
         listAdapter = new StatisticsListAdapter(this.getContext(), new ArrayList<ListItem>());
         listView.setAdapter(listAdapter);
     }
@@ -124,15 +123,23 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         }
     }
 
+
     @Override
-    public void onEntriesLoaded(List<ListItem> entryVMs) {
-        listView.invalidate();
+    public void onEntriesLoaded(final List<ListItem> entryVMs) {
+        //listAdapter = new StatisticsListAdapter(this.getContext(), entryVMs);
+        //listView.setAdapter(listAdapter);
+        listAdapter.clear();
+        // listView.invalidateViews();
+        //listView.invalidate();
         listAdapter.addAll(entryVMs);
+        listAdapter.notifyDataSetChanged();
+        //listView.invalidateViews();
+        //listView.invalidate();
+
     }
 
     @Override
     public void reloadList() {
-        createListAndAdapter();
         presenter.loadEntries();
     }
 
@@ -162,11 +169,9 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
     private class StatisticsListAdapter extends ArrayAdapter<ListItem> {
         private LayoutInflater layoutInflater;
-        private Map<View, Integer> viewToIntegerMap;
 
         public StatisticsListAdapter(Context context, List<ListItem> objects) {
             super(context, 0, objects);
-            viewToIntegerMap = new HashMap<>();
             layoutInflater = LayoutInflater.from(getContext());
         }
 
@@ -214,6 +219,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
             return convertView;
         }
 
+
         @Override
         public int getViewTypeCount() {
             return 2;
@@ -222,6 +228,11 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         @Override
         public boolean isEnabled(int position) {
             return getItem(position).isSection() == false;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return getItem(position).isSection() == true ? 1 : 0;
         }
     }
 }

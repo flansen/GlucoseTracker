@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindString;
@@ -35,6 +36,8 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     Button addAlarmButton;
     @BindString(R.string.home_recent_value)
     String noValueString;
+    @BindView(R.id.home_top_layout)
+    RelativeLayout layout;
     private HomeFragmentPresenter presenter;
 
     public static HomeFragment newInstance() {
@@ -77,6 +80,7 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     @Override
     public void displayMostRecentValue(String displayString) {
         recentValueText.setText(displayString);
+        layout.requestLayout();
     }
 
     @Override
