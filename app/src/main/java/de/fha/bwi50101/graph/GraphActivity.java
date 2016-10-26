@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.AxisValueFormatter;
@@ -30,13 +31,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
 import de.fha.bwi50101.common.impl.AppSettingsImpl;
-import de.fha.bwi50101.common.model.DiabetesDataType;
-import de.fha.bwi50101.common.model.Entry;
+import de.fha.bwi50101.common.persistance.impl.RepositoryImpl;
 import de.fha.bwi50101.graph.impl.GraphPresenterImpl;
 import de.flhn.cleanboilerplate.MainThreadImpl;
 import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
 
 public class GraphActivity extends AppCompatActivity implements OnChartGestureListener, GraphPresenter.View {
+    private static final float MIN_X_RANGE = 1000 * 60 * 60 * 18;
+    private static final float MAX_X_RANGE = 1000 * 60 * 60 * 60;
     @BindView(R.id.graph)
     LineChart mChart;
 
@@ -49,14 +51,14 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
         setContentView(R.layout.activity_graph);
         ButterKnife.bind(this);
         // typeface = Typeface.createFromAsset(getAssets(), "fonts/Dosis-Medium-Zero.ttf");
-        presenter = new GraphPresenterImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), new AppSettingsImpl(PreferenceManager.getDefaultSharedPreferences(this)), this);
+        presenter = new GraphPresenterImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), new AppSettingsImpl(PreferenceManager.getDefaultSharedPreferences(this)), this, RepositoryImpl.getInstance());
         presenter.viewCreated();
     }
 
     private float calculateYMax(List<Entry> entries) {
         float max = 0;
         for (Entry e : entries) {
-            max = max > e.getDiabetesDataOfType(DiabetesDataType.Glucose).getValue() ? max : e.getDiabetesDataOfType(DiabetesDataType.Glucose).getValue();
+            max = max > e.getY() ? max : e.getY();
         }
         return max + 15f;
     }
@@ -65,11 +67,12 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
         Set<String> days = new HashSet<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (Entry e : entries) {
-            String d = sdf.format(e.getDiabetesDataOfType(DiabetesDataType.Glucose).getDate().getTime());
+            Date date = new Date((long) e.getX());
+            String d = sdf.format(date);
             if (days.contains(d))
                 continue;
             days.add(d);
-            long timestamp = e.getDiabetesDataOfType(DiabetesDataType.Glucose).getDate().getTime();
+            long timestamp = (long) e.getX();
             xAxis.addLimitLine(createLimitLine(timestamp, "", LimitLine.LimitLabelPosition.LEFT_BOTTOM, Color.LTGRAY, 2));
         }
     }
@@ -94,8 +97,7 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, "DataSet 1");
+            set1 = new LineDataSet(values, "Glucose Set");
             set1.enableDashedLine(10f, 5f, 0f);
             set1.enableDashedHighlightLine(10f, 5f, 0f);
             set1.setColor(Color.BLACK);
@@ -111,15 +113,6 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
             LineData data = new LineData(dataSets);
             mChart.setData(data);
         }
-    }
-
-    private List<com.github.mikephil.charting.data.Entry> transformDiabetesEntriesToGraphEntries(List<Entry> filteredList) {
-        ArrayList<com.github.mikephil.charting.data.Entry> values = new ArrayList<>();
-
-        for (int i = 0; i < filteredList.size(); i++) {
-            values.add(new com.github.mikephil.charting.data.Entry(filteredList.get(i).getDiabetesDataOfType(DiabetesDataType.Glucose).getDate().getTime(), filteredList.get(i).getDiabetesDataOfType(DiabetesDataType.Glucose).getValue()));
-        }
-        return values;
     }
 
     @Override
@@ -165,21 +158,14 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
     @Override
     public void displayGraph(List<Entry> entryList, int lowerBound, int upperBound) {
         mChart.setOnChartGestureListener(this);
-        // mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
         // no description text
         mChart.setDescription("");
         mChart.setNoDataTextDescription(getString(R.string.no_graph_data));
-
-        // enable touch gestures
         mChart.setTouchEnabled(true);
-
-        // enable scaling and dragging
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(false);
-
-        List<com.github.mikephil.charting.data.Entry> graphEntryList = transformDiabetesEntriesToGraphEntries(entryList);
-        setData(graphEntryList);
+        setData(entryList);
 
         mChart.setPinchZoom(true);
 
@@ -200,12 +186,11 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
         mChart.getXAxis().setDrawGridLines(false);
         mChart.getXAxis().setValueFormatter(new MyAxisValueFormatter());
         createDayLimiter(mChart.getXAxis(), entryList);
-        mChart.setVisibleXRange(1000 * 60 * 60 * 18, 1000 * 60 * 60 * 60);
-        mChart.moveViewToX(entryList.get(entryList.size() - 1).getDataCreatedAt().getTime());
+        mChart.setVisibleXRange(MIN_X_RANGE, MAX_X_RANGE);
+        mChart.moveViewToX(mChart.getXChartMax());
     }
 
     class MyAxisValueFormatter implements AxisValueFormatter {
-
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
             long v = (long) value;
