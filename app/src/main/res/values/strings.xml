@@ -2,8 +2,6 @@
     <string name="app_name">BWI50101</string>
     <string name="action_bar_title_overview">Overview</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_hint">Note</string>
     <string name="statistics_list_empty">No Entries available.</string>
     <string name="home_recent_value_label">recent value</string>
@@ -12,4 +10,16 @@
     <string name="home_add_entry">Create new Entry</string>
     <string name="home_alarms_label">Alarms</string>
     <string name="home_alarms_create_button">Create new Alarm</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="settings_toolbar_title">Settings</string>
+    <string name="settings_title_lower_bound">Upper bound</string>
+    <string name="settings_title_upper_bound">Lower Bound</string>
+    <string name="settings_key_upper_bound">upper_bound</string>
+    <string name="settings_key_lower_bound">lower_bound</string>
+
+    <string name="glucose_upper_limit_lower_bound">100</string>
+    <string name="glucose_upper_limit_upper_bound">300</string>
+    <string name="glucose_lower_limit_lower_bound">50</string>
+    <string name="glucose_lower_limit_upper_bound">150</string>
 </resources>

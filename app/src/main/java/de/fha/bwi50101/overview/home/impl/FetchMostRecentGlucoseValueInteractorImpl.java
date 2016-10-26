@@ -25,7 +25,14 @@ public class FetchMostRecentGlucoseValueInteractorImpl extends AbstractInteracto
 
     @Override
     public void run() {
-        Entry entry = repository.findMostRecentWithGlucoseValue();
-        callback.onEntry(entry);
+        final Entry entry = repository.findMostRecentWithGlucoseValue();
+
+        mMainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onEntry(entry);
+            }
+        });
+
     }
 }

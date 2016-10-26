@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,8 +45,11 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     ListView listView;
     @BindString(R.string.statistics_list_empty)
     String listEmptyString;
-    //@BindView(R.id.statistics_empty_list)
-    //TextView emptyListView;
+    @BindView(R.id.statistics_empty_list)
+    TextView emptyListView;
+    @BindView(R.id.statistics_fab)
+    FloatingActionButton createFAB;
+
     private StatisticsFragmentPresenter presenter;
     private ProgressDialog progressDialog;
     private StatisticsListAdapter listAdapter;
@@ -79,9 +83,10 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
-        // listView.setEmptyView(emptyListView);
+        listView.setEmptyView(emptyListView);
         createListAndAdapter();
         createListClickListener();
+        setFABClickListener();
         return view;
     }
 
@@ -97,6 +102,14 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         });
     }
 
+    private void setFABClickListener() {
+        createFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((OverviewActivity) getActivity()).createEntryClicked();
+            }
+        });
+    }
 
     private void createListAndAdapter() {
         listAdapter = new StatisticsListAdapter(this.getContext(), new ArrayList<ListItem>());
@@ -126,16 +139,9 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
 
     @Override
     public void onEntriesLoaded(final List<ListItem> entryVMs) {
-        //listAdapter = new StatisticsListAdapter(this.getContext(), entryVMs);
-        //listView.setAdapter(listAdapter);
         listAdapter.clear();
-        // listView.invalidateViews();
-        //listView.invalidate();
         listAdapter.addAll(entryVMs);
-        listAdapter.notifyDataSetChanged();
-        //listView.invalidateViews();
-        //listView.invalidate();
-
+        //  listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -212,6 +218,7 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
                 holder.noteText.setVisibility(View.GONE);
             } else {
                 holder.noteText.setText(vm.getNoteString());
+                holder.noteText.setVisibility(View.VISIBLE);
             }
             holder.foodText.setText(vm.getFoodString());
             holder.glucoseText.setText(vm.getGlucoseString());

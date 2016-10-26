@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import de.fha.bwi50101.create_edit.CreateEditActivity;
 import de.fha.bwi50101.overview.home.HomeFragment;
 import de.fha.bwi50101.overview.impl.OverviewPresenterImpl;
 import de.fha.bwi50101.overview.statistic.StatisticsFragment;
+import de.fha.bwi50101.settings.SettingsActivity;
 
 
 public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View {
@@ -52,6 +54,15 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         presenter.resume();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            Intent startIntent = new Intent(this, SettingsActivity.class);
+            startActivity(startIntent);
+            return true;
+        }
+        return false;
+    }
 
     private Fragment[] createFragments() {
         fragments = new LinkedHashMap<>();

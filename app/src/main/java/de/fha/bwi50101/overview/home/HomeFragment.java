@@ -80,7 +80,6 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     @Override
     public void displayMostRecentValue(String displayString) {
         recentValueText.setText(displayString);
-        layout.requestLayout();
     }
 
     @Override
