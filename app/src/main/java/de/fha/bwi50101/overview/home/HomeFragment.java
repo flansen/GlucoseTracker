@@ -38,6 +38,8 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     String noValueString;
     @BindView(R.id.home_top_layout)
     RelativeLayout layout;
+    @BindView(R.id.home_recent_value_unit)
+    TextView unitText;
     private HomeFragmentPresenter presenter;
 
     public static HomeFragment newInstance() {
@@ -78,7 +80,11 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     }
 
     @Override
-    public void displayMostRecentValue(String displayString) {
+    public void displayMostRecentValue(String displayString, boolean shouldShowUnitLabel) {
+        if (shouldShowUnitLabel)
+            unitText.setVisibility(View.VISIBLE);
+        else
+            unitText.setVisibility(View.INVISIBLE);
         recentValueText.setText(displayString);
     }
 
@@ -86,6 +92,7 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     public void onError() {
         recentValueText.setText(noValueString);
     }
+
 
     public void loadRecentEntry() {
         presenter.fetchMostRecentGlucoseValue();

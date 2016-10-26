@@ -12,7 +12,7 @@ public interface HomeFragmentPresenter extends BasePresenter {
     void fetchMostRecentGlucoseValue();
 
     interface View {
-        void displayMostRecentValue(String displayString);
+        void displayMostRecentValue(String displayString, boolean shouldShowUnitLabel);
 
         void onError();
     }

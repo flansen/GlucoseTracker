@@ -56,7 +56,6 @@ public class ColorHelper {
     }
 
     public static int calculateColor(float fromValue, float saturation, float brightness) {
-        //TODO: Read from settings
         float lowerBound = 80f;
         float upperBound = 160f;
         float hue = 120f;

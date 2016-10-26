@@ -63,15 +63,13 @@ public class HomeFragmentPresenterImpl implements HomeFragmentPresenter, FetchMo
 
     @Override
     public void onEntry(Entry entry) {
-        //FIXME
         if (entry == null) {
-            //TODO Hide unit label
-            view.displayMostRecentValue("no data");
+            view.displayMostRecentValue("no data", false);
             return;
         }
         DiabetesData dd = entry.getDiabetesDataOfType(DiabetesDataType.Glucose);
         String displayString = String.format("%.0f", dd.getValue());
-        view.displayMostRecentValue(displayString);
+        view.displayMostRecentValue(displayString, true);
     }
 
     @Override
