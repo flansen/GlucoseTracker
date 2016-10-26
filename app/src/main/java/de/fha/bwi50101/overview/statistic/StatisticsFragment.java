@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +30,7 @@ import de.fha.bwi50101.common.Constants;
 import de.fha.bwi50101.common.impl.DateConverterImpl;
 import de.fha.bwi50101.common.persistance.impl.RepositoryImpl;
 import de.fha.bwi50101.create_edit.CreateEditActivity;
+import de.fha.bwi50101.graph.GraphActivity;
 import de.fha.bwi50101.overview.OverviewActivity;
 import de.fha.bwi50101.overview.statistic.impl.EntryToEntryVMConverterImpl;
 import de.fha.bwi50101.overview.statistic.impl.FetchAllEntriesInteractorImpl;
@@ -102,6 +104,15 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_graph) {
+            startActivity(new Intent(getContext(), GraphActivity.class));
+            return true;
+        }
+        return false;
+    }
+
     private void setFABClickListener() {
         createFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +152,6 @@ public class StatisticsFragment extends Fragment implements StatisticsFragmentPr
     public void onEntriesLoaded(final List<ListItem> entryVMs) {
         listAdapter.clear();
         listAdapter.addAll(entryVMs);
-        //  listAdapter.notifyDataSetChanged();
     }
 
     @Override

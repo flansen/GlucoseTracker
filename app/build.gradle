@@ -37,6 +37,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     //region test
     testCompile "junit:junit:$rootProject.junitVersion"
     testCompile "org.mockito:mockito-core:$rootProject.mockitoCore"
@@ -61,12 +63,12 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile "com.github.PhilJay:MPAndroidChart:$rootProject.androidChartVersion"
+
     compile "com.github.satyan:sugar:$rootProject.sugarOrmVersion"
     compile "com.facebook.stetho:stetho:$rootProject.stethoVersion"
     compile "com.facebook.stetho:stetho-okhttp:$rootProject.stethoVersion"
     //endregion
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:support-vector-drawable:24.2.1'
 
 
 }

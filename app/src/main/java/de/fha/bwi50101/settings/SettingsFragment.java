@@ -13,18 +13,23 @@ import android.widget.Toast;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
+import de.fha.bwi50101.common.impl.AppSettingsImpl;
+import de.fha.bwi50101.settings.impl.SettingsPresenterImpl;
+import de.flhn.cleanboilerplate.MainThreadImpl;
+import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
 
 /**
  * Created by Florian on 26.10.2016.
  */
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener, SettingsPresenter.View {
     @BindString(R.string.settings_key_lower_bound)
     String lowerBoundKey;
     @BindString(R.string.settings_key_upper_bound)
     String upperBoundKey;
     private Preference lowerTargetValuePreference;
     private Preference upperTargetValuePreference;
+    private SettingsPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         lowerTargetValuePreference = findPreference(getResources().getString(R.string.settings_key_lower_bound));
         upperTargetValuePreference = findPreference(getResources().getString(R.string.settings_key_upper_bound));
         registerPreferenceListeners();
+        this.presenter = new SettingsPresenterImpl(ThreadExecutor.getInstance(),
+                MainThreadImpl.getInstance(),
+                new AppSettingsImpl(PreferenceManager.getDefaultSharedPreferences(getActivity())),
+                this);
     }
 
     private void registerPreferenceListeners() {
@@ -87,36 +96,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == null)
             return false;
-        int lowerValueLowerBound = Integer.parseInt(getActivity().getString(R.string.glucose_lower_limit_lower_bound));
-        int lowerValueUpperBound = Integer.parseInt(getActivity().getString(R.string.glucose_lower_limit_upper_bound));
-        int upperValueLowerBound = Integer.parseInt(getActivity().getString(R.string.glucose_upper_limit_lower_bound));
-        int upperValueUpperBound = Integer.parseInt(getActivity().getString(R.string.glucose_upper_limit_upper_bound));
         EditTextPreference pref = (EditTextPreference) preference;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplication());
         switch (pref.getKey()) {
             case "upper_bound":
-                String lowerValueStr = sharedPreferences.getString(lowerBoundKey, null);
-                int lowerValue = Integer.valueOf(lowerValueStr);
-                int newUpperVal = Integer.valueOf((String) newValue);
-                if (newUpperVal > upperValueLowerBound || newUpperVal < upperValueUpperBound || newUpperVal < lowerValue) {
-                    Toast.makeText(getActivity(), "Upper value must be between " + upperValueLowerBound + "  and " + upperValueUpperBound + " and greater than the lower bound.", Toast.LENGTH_LONG).show();
-                    return false;
-                } else {
-                    sharedPreferences.edit().putString(upperBoundKey, Integer.toString(newUpperVal)).apply();
-                    return true;
-                }
+                return presenter.onUpperBoundChanged(Integer.valueOf((String) newValue));
             case "lower_bound":
-                String upperValueStr = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(upperBoundKey, null);
-                int upperValue = Integer.valueOf(upperValueStr);
-                int newLowerVal = Integer.valueOf((String) newValue);
-                if (newLowerVal < lowerValueLowerBound || newLowerVal > lowerValueUpperBound || newLowerVal > upperValue) {
-                    Toast.makeText(getActivity(), "Lower value must be between " + lowerValueLowerBound + " and " + lowerValueUpperBound + " and lower than the lower value.", Toast.LENGTH_LONG).show();
-                    return false;
-                } else {
-                    sharedPreferences.edit().putString(lowerBoundKey, Integer.toString(newLowerVal)).apply();
-                    return true;
-                }
+                return presenter.onLowerBoundChange(Integer.valueOf((String) newValue));
         }
         return true;
+    }
+
+    @Override
+    public void showMessage(String m) {
+        Toast.makeText(getActivity(), m, Toast.LENGTH_LONG).show();
     }
 }
