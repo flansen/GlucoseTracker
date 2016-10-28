@@ -24,7 +24,7 @@ import de.fha.bwi50101.overview.statistic.StatisticsFragment;
 import de.fha.bwi50101.settings.SettingsActivity;
 
 
-public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View {
+public class OverviewActivity extends AppCompatActivity implements OverviewPresenter.View, TimeSetListener {
     public static final int CREATE_EDIT_ENTRY_CODE = 1256;
     @BindView(R.id.overview_toolbar)
     Toolbar toolbar;
@@ -97,8 +97,12 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         this.presenter = presenter;
     }
 
-    public void createAlarmClicked() {
-
+    @Override
+    public void onTimeSet(int hourOfDay, int min) {
+        Fragment f = fragments.get(HomeFragment.class);
+        if (f != null) {
+            ((HomeFragment) f).onTimeSet(hourOfDay, min);
+        }
     }
 }
 

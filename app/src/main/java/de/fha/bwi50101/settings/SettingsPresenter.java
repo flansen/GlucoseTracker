@@ -11,6 +11,8 @@ public interface SettingsPresenter extends BasePresenter {
 
     boolean onLowerBoundChange(int lowerBound);
 
+    boolean onAlarmIntervalChanged(int interval);
+
     interface View {
         void showMessage(String m);
     }

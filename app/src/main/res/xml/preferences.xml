@@ -12,4 +12,11 @@
             android:key="@string/settings_key_upper_bound"
             android:title="@string/settings_title_upper_bound" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="Default alarm time">
+        <EditTextPreference
+            android:defaultValue="3"
+            android:inputType="number"
+            android:key="@string/settings_key_alarm_time"
+            android:title="@string/settings_title_alarm_time" />
+    </PreferenceCategory>
 </PreferenceScreen>

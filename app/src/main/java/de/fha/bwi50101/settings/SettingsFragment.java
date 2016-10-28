@@ -103,6 +103,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 return presenter.onUpperBoundChanged(Integer.valueOf((String) newValue));
             case "lower_bound":
                 return presenter.onLowerBoundChange(Integer.valueOf((String) newValue));
+            case "settings_alarm_time":
+                return presenter.onAlarmIntervalChanged(Integer.valueOf((String) newValue));
         }
         return true;
     }

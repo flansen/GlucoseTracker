@@ -18,6 +18,14 @@ public class Constants {
 
     public static final String SETTINGS_KEY_UPPER_BOUND = "upper_bound";
     public static final String SETTINGS_KEY_LOWER_BOUND = "lower_bound";
+    public static final String SETTINGS_KEY_ALARM_INTERVAL = "settings_alarm_time";
+    public static final String ACTION_ALARM_INTENT = "de.fha.bwi50101.alarm";
+
+    public static final String ALARM_HOUR_KEY = "alarm_time_h";
+    public static final String ALARM_MINUTES_KEY = "alarm_time_min";
+    public static final String ALARM_ENABLED_KEY = "alarm_enabled";
+    public static final String NOTIFICATION_TITLE = "Lumind Reminder";
+    public static final String NOTIFICATION_TEXT = "You should measure your glucose again!";
 
     public static class COLORS {
         public static int GREY = Color.rgb(0, 0, 0);

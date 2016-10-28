@@ -25,13 +25,22 @@
         <activity android:name=".overview.OverviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".create_edit.CreateEditActivity" />
         <activity android:name=".settings.SettingsActivity" />
         <activity android:name=".graph.GraphActivity"></activity>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="de.fha.bwi50101.alarm" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

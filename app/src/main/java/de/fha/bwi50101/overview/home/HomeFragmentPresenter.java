@@ -11,9 +11,21 @@ public interface HomeFragmentPresenter extends BasePresenter {
 
     void fetchMostRecentGlucoseValue();
 
+    void handleTimerChanged(int hourOfDay, int min, boolean isEnabled);
+
+    void loadAlarm();
+
+    void handleTimerStateChanged(boolean isEnabled);
+
     interface View {
         void displayMostRecentValue(String displayString, boolean shouldShowUnitLabel);
 
         void onError();
+
+        void displayAlarmData(String time, boolean enabled);
+
+        void showMessage(String message);
+
+        void updateAlarmSwitchState(boolean state);
     }
 }

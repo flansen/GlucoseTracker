@@ -8,7 +8,8 @@
         android:id="@+id/home_top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/home_recent_value_label"
@@ -43,10 +44,7 @@
                 android:text="@string/glucose_unit"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
-
-
         </LinearLayout>
-
 
         <Button
             android:id="@+id/home_add_entry"
@@ -56,12 +54,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/colorPrimaryLight"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/home_add_entry"
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/home_alarms_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,21 +67,45 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
         android:text="@string/home_alarms_label"
-        android:textSize="36sp" />
+        android:textSize="36sp" />-->
 
-    <Button
-        android:id="@+id/home_add_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/home_alarms_label"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
-        android:text="@string/home_alarms_create_button" />
-
-    <ListView
-        android:id="@+id/home_alarm_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_alarms_label" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_top_layout"
+        android:background="@color/colorYellow">
+
+        <TextView
+            android:id="@+id/home_alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
+            android:clickable="true"
+            android:text="12:00"
+            android:textColor="@color/white"
+            android:textSize="60sp" />
+
+        <ImageView
+            android:id="@+id/home_alarm_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/home_alarm_time"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_access_alarms_black_24dp" />
+
+
+        <Switch
+            android:id="@+id/home_alarm_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_alarm_time"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginTop="4dp" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

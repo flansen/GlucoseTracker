@@ -77,4 +77,10 @@ public class SettingsPresenterImpl extends AbstractPresenter implements Settings
             return true;
         }
     }
+
+    @Override
+    public boolean onAlarmIntervalChanged(int interval) {
+        appSettings.putInt(Constants.SETTINGS_KEY_ALARM_INTERVAL, interval);
+        return true;
+    }
 }

@@ -8,4 +8,5 @@ import java.util.Date;
 
 public interface DateConverter {
     String dateToOverviewDateString(Date date);
+
 }
