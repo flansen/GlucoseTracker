@@ -45,12 +45,14 @@ public class AlarmHandlerImpl implements AlarmHandler {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         Intent i = new Intent(context, OverviewActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
-        return builder
+        Notification notification = builder
                 .setContentTitle(Constants.NOTIFICATION_TITLE)
                 .setContentIntent(pendingIntent)
                 .setContentText(Constants.NOTIFICATION_TEXT)
                 .setSmallIcon(R.drawable.ic_blood)
                 .setAutoCancel(true)
                 .build();
+        notification.defaults |= Notification.DEFAULT_ALL;
+        return notification;
     }
 }

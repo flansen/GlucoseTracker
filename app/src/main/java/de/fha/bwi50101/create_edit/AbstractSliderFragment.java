@@ -15,11 +15,11 @@ public abstract class AbstractSliderFragment extends Fragment {
     protected AbstractLumindSliderHandler sliderHandler;
 
     protected void slidingStarted() {
-        ((DisableableViewPagerHolder) getActivity()).enableViewPaging();
+        ((DisableableViewPagerHolder) getActivity()).disableViewPaging();
     }
 
     protected void slidingStopped() {
-        ((DisableableViewPagerHolder) getActivity()).disableViewPaging();
+        ((DisableableViewPagerHolder) getActivity()).enableViewPaging();
     }
 
     protected int getSliderColor() {
