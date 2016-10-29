@@ -4,7 +4,7 @@ package de.fha.bwi50101.overview.statistic;
  * Created by Florian on 08.10.2016.
  */
 public class EntryVM implements ListItem {
-    private String dateString, glucoseString, foodString, insulinString, noteString, insulinUnit, foodUnit, glucoseUnit;
+    private String dateString, glucoseString, foodString = "0", insulinString = "0", noteString, insulinUnit, foodUnit, glucoseUnit;
     private long modelId;
 
     public String getDateString() {

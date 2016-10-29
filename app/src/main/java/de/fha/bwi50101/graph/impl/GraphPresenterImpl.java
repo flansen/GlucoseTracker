@@ -66,7 +66,7 @@ public class GraphPresenterImpl extends AbstractPresenter implements GraphPresen
 
     @Override
     public void viewCreated() {
-        interactor.execute();
+        ((FetchAllEntriesInteractorImpl) interactor).execute();
     }
 
     private boolean determineShouldShowGraph(List<Entry> filteredList) {
@@ -77,12 +77,14 @@ public class GraphPresenterImpl extends AbstractPresenter implements GraphPresen
             Date d = new Date((long) e.getX());
             days.add(sdf.format(d));
         }
-        return days.size() > 3;
+        return days.size() >= 3;
     }
 
     private List<Entry> convertEntriesToGraphEntries(List<de.fha.bwi50101.common.model.Entry> entryList) {
         List<Entry> entries = new LinkedList<>();
         for (de.fha.bwi50101.common.model.Entry e : entryList) {
+            if (!e.hasDiabetesDataOfType(DiabetesDataType.Glucose))
+                continue;
             entries.add(new Entry(e.getDataCreatedAt().getTime(), e.getDiabetesDataOfType(DiabetesDataType.Glucose).getValue()));
         }
         return entries;

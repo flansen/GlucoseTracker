@@ -156,7 +156,7 @@ public class GraphActivity extends AppCompatActivity implements OnChartGestureLi
     }
 
     @Override
-    public void displayGraph(List<Entry> entryList, int lowerBound, int upperBound) {
+    public void displayGraph(List<Entry> entryList, int upperBound, int lowerBound) {
         mChart.setOnChartGestureListener(this);
         mChart.setDrawGridBackground(false);
         // no description text

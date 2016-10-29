@@ -17,13 +17,12 @@ import de.flhn.cleanboilerplate.domain.interactors.base.AbstractInteractor;
 public class SaveAlarmInteractorImpl extends AbstractInteractor implements SaveAlarmInteractor {
 
     private final AppSettings appSettings;
-    private final Callback callback;
     private final SetAlarmInteractor setAlarmInteractor;
+    private Callback callback;
 
-    public SaveAlarmInteractorImpl(Executor threadExecutor, MainThread mainThread, Callback callback, AppSettings appSettings, SetAlarmInteractor setAlarmInteractor) {
+    public SaveAlarmInteractorImpl(Executor threadExecutor, MainThread mainThread, AppSettings appSettings, SetAlarmInteractor setAlarmInteractor) {
         super(threadExecutor, mainThread);
         this.appSettings = appSettings;
-        this.callback = callback;
         this.setAlarmInteractor = setAlarmInteractor;
     }
 
@@ -35,7 +34,12 @@ public class SaveAlarmInteractorImpl extends AbstractInteractor implements SaveA
 
         setAlarmInteractor.setAlarm(TimeConverter.calculateMsUntil(alarm.getHourOfDay(), alarm.getMinutes()), alarm.isEnabled());
 
-        callback.onAlarmSaved(alarm);
+        if (callback != null)
+            callback.onAlarmSaved(alarm);
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     @Override

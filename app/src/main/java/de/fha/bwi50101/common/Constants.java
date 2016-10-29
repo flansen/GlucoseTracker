@@ -18,7 +18,7 @@ public class Constants {
 
     public static final String SETTINGS_KEY_UPPER_BOUND = "upper_bound";
     public static final String SETTINGS_KEY_LOWER_BOUND = "lower_bound";
-    public static final String SETTINGS_KEY_ALARM_INTERVAL = "settings_alarm_time";
+    public static final String SETTINGS_KEY_ALARM_INTERVAL = "settings_key_alarm_time";
     public static final String ACTION_ALARM_INTENT = "de.fha.bwi50101.alarm";
 
     public static final String ALARM_HOUR_KEY = "alarm_time_h";

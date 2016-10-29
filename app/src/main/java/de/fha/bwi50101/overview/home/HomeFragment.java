@@ -72,6 +72,11 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
                 new SetAlarmInteractorImpl(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), new AlarmHandlerImpl(getActivity().getApplicationContext(), alarmManager)));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadAlarm();
+    }
 
     @Nullable
     @Override

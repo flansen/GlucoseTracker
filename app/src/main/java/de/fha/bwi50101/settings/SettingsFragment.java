@@ -29,6 +29,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     String upperBoundKey;
     private Preference lowerTargetValuePreference;
     private Preference upperTargetValuePreference;
+    private Preference alarmIntervalPreference;
     private SettingsPresenter presenter;
 
     @Override
@@ -39,6 +40,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         lowerTargetValuePreference = findPreference(getResources().getString(R.string.settings_key_lower_bound));
         upperTargetValuePreference = findPreference(getResources().getString(R.string.settings_key_upper_bound));
+        alarmIntervalPreference = findPreference(getResources().getString(R.string.settings_key_alarm_time));
         registerPreferenceListeners();
         this.presenter = new SettingsPresenterImpl(ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
@@ -51,6 +53,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         lowerTargetValuePreference.setOnPreferenceChangeListener(this);
         upperTargetValuePreference.setOnPreferenceClickListener(this);
         upperTargetValuePreference.setOnPreferenceChangeListener(this);
+        alarmIntervalPreference.setOnPreferenceClickListener(this);
+        alarmIntervalPreference.setOnPreferenceChangeListener(this);
     }
 
     @Override

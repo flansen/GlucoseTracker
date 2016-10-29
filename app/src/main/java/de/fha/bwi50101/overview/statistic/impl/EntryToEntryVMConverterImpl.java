@@ -89,10 +89,11 @@ public class EntryToEntryVMConverterImpl implements EntryToEntryVMConverter {
     private void setDiabetesDataString(EntryVM entryVM, DiabetesData d) {
         if (d.getType() == DiabetesDataType.Glucose)
             entryVM.setGlucoseString(String.format(STRING_FORMAT, d.getValue()));
-        else if (d.getType() == DiabetesDataType.Food)
+        else if (d.getType() == DiabetesDataType.Food) {
             entryVM.setFoodString(String.format(STRING_FORMAT, d.getValue()));
-        else if (d.getType() == DiabetesDataType.StandardInsulin)
+        } else if (d.getType() == DiabetesDataType.StandardInsulin) {
             entryVM.setInsulinString(String.format(STRING_FORMAT, d.getValue()));
+        }
     }
 
     private EntryVM setEntryVMAttributes(Entry entry, EntryVM entryVM) {

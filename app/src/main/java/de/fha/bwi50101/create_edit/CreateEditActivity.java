@@ -1,8 +1,11 @@
 package de.fha.bwi50101.create_edit;
 
+import android.app.AlarmManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.fha.bwi50101.R;
 import de.fha.bwi50101.common.Constants;
+import de.fha.bwi50101.common.impl.AppSettingsImpl;
 import de.fha.bwi50101.common.model.Entry;
 import de.fha.bwi50101.common.persistance.impl.RepositoryImpl;
 import de.fha.bwi50101.create_edit.food.FoodFragment;
@@ -24,6 +28,7 @@ import de.fha.bwi50101.create_edit.glucose.GlucoseFragment;
 import de.fha.bwi50101.create_edit.impl.CreateEditEntryPresenterImpl;
 import de.fha.bwi50101.create_edit.insulin.InsulinFragment;
 import de.fha.bwi50101.create_edit.note.NoteFragment;
+import de.fha.bwi50101.overview.home.impl.AlarmHandlerImpl;
 import de.flhn.cleanboilerplate.MainThreadImpl;
 import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
 
@@ -44,11 +49,14 @@ public class CreateEditActivity extends AppCompatActivity implements Disableable
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_edit);
         ButterKnife.bind(this);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         presenter = new CreateEditEntryPresenterImpl(
                 MainThreadImpl.getInstance(),
                 ThreadExecutor.getInstance(),
                 RepositoryImpl.getInstance(),
-                this
+                this,
+                new AppSettingsImpl(PreferenceManager.getDefaultSharedPreferences(this)),
+                new AlarmHandlerImpl(this, alarmManager)
         );
         setSupportActionBar(toolbar);
         createOrRecreateEntry(getIntent());

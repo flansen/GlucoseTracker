@@ -76,7 +76,8 @@ public class HomeFragmentPresenterImpl implements HomeFragmentPresenter, FetchMo
 
     @Override
     public void handleTimerChanged(int hourOfDay, int min, boolean isEnabled) {
-        SaveAlarmInteractor interactor = new SaveAlarmInteractorImpl(executor, mainThread, this, appSettings, setAlarmManagerInteractor);
+        SaveAlarmInteractor interactor = new SaveAlarmInteractorImpl(executor, mainThread, appSettings, setAlarmManagerInteractor);
+        interactor.setCallback(this);
         LumindAlarm alarm = new LumindAlarm(isEnabled, hourOfDay, min);
         interactor.saveAlarm(alarm);
     }
