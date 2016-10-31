@@ -2,15 +2,24 @@ package de.fha.bwi50101.overview;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Collection;
+
+import de.fha.bwi50101.R;
+import de.fha.bwi50101.create_edit.CreateEditActivity;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by Florian on 08.10.2016.
@@ -21,14 +30,14 @@ public class OverviewActivityEspressoTest {
     public ActivityTestRule<OverviewActivity> mActivityRule =
             new ActivityTestRule<>(OverviewActivity.class);
 
-  /*  @Test
+    @Test
     public void testClickFAB() {
-        Espresso.onView(ViewMatchers.withId(R.id.fab_create))
+        Espresso.onView(ViewMatchers.withId(R.id.home_add_entry))
                 .perform(ViewActions.click());
         Activity activity = getActivityInstance();
         boolean b = (activity instanceof CreateEditActivity);
         assertTrue(b);
-    }*/
+    }
 
 
     //http://www.vogella.com/tutorials/AndroidTestingEspresso/article.html#espresso_usageintroduction_viewaction

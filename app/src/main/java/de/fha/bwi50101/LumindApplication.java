@@ -3,7 +3,6 @@ package de.fha.bwi50101;
 import android.app.Application;
 import android.preference.PreferenceManager;
 
-import com.facebook.stetho.Stetho;
 import com.orm.SugarContext;
 
 /**
@@ -15,12 +14,7 @@ public class LumindApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SugarContext.init(this);
-        Stetho.initialize(Stetho.newInitializerBuilder(this)
-                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                .build());
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
     }
 
     @Override

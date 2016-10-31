@@ -62,12 +62,8 @@ dependencies {
     //region vendor
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-    compile "com.google.guava:guava:$rootProject.guavaVersion"
     compile "com.github.PhilJay:MPAndroidChart:$rootProject.androidChartVersion"
-
     compile "com.github.satyan:sugar:$rootProject.sugarOrmVersion"
-    compile "com.facebook.stetho:stetho:$rootProject.stethoVersion"
-    compile "com.facebook.stetho:stetho-okhttp:$rootProject.stethoVersion"
     //endregion
 
 

@@ -170,4 +170,8 @@ public class HomeFragment extends Fragment implements HomeFragmentPresenter.View
     public void onTimeSet(int hourOfDay, int min) {
         presenter.handleTimerChanged(hourOfDay, min, true);
     }
+
+    public void setPresenter(HomeFragmentPresenter presenter) {
+        this.presenter = presenter;
+    }
 }

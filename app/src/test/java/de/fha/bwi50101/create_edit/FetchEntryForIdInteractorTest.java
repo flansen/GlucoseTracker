@@ -23,7 +23,7 @@ import de.flhn.cleanboilerplate.domain.executor.impl.ThreadExecutor;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Looper.class, MainThreadImpl.class})
 public class FetchEntryForIdInteractorTest {
-    FetchEntryForIdInteractor sut;
+    FetchEntryForIdInteractorImpl sut;
     Repository repositoryMock;
     FetchEntryForIdInteractor.Callback callbackMock;
     long id;
@@ -47,7 +47,7 @@ public class FetchEntryForIdInteractorTest {
     public void shouldCall_Callback() {
         Entry entryMock = Mockito.mock(Entry.class);
         Mockito.when(repositoryMock.findById(id)).thenReturn(entryMock);
-        ((FetchEntryForIdInteractorImpl) sut).run();
+        sut.run();
         Mockito.verify(callbackMock, Mockito.times(1)).entryFound(entryMock);
     }
 }

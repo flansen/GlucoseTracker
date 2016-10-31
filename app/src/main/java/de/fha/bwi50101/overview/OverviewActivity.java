@@ -51,7 +51,6 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         presenter = new OverviewPresenterImpl();
-        presenter.resume();
     }
 
     @Override
@@ -74,6 +73,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.overview_menu, menu);
         return true;
     }
@@ -103,6 +103,10 @@ public class OverviewActivity extends AppCompatActivity implements OverviewPrese
         if (f != null) {
             ((HomeFragment) f).onTimeSet(hourOfDay, min);
         }
+    }
+
+    public Map<Class<? extends Fragment>, Fragment> getFragments() {
+        return fragments;
     }
 }
 
