@@ -5,7 +5,7 @@
     android:id="@+id/activity_create_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.fha.bwi50101.create_edit.CreateEditActivity">
+    tools:context="de.flansen.glucosetracker.create_edit.CreateEditActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/create_edit_toolbar"
@@ -17,7 +17,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-    <de.fha.bwi50101.create_edit.DisableableViewPager
+    <de.flansen.glucosetracker.create_edit.DisableableViewPager
         android:id="@+id/create_edit_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BWI50101</string>
+    <string name="app_name">Glucose Tracker</string>
     <string name="action_bar_title_overview">Overview</string>
 
     <string name="note_hint">Note</string>

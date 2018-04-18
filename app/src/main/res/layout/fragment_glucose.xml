@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
 
-    <de.fha.bwi50101.create_edit.slider.LumindSlider
+    <de.flansen.glucosetracker.create_edit.slider.LumindSlider
         android:id="@+id/glucose_slider"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
